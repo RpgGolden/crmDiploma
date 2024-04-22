@@ -25,14 +25,41 @@
   }
 }
 
+@mixin img-input-text($width, $border-radius) {
+  width: $width;
+  display: flex;
+  align-items: center;
+  border-radius: $border-radius;
+  background-color: #fff;
+  padding: 7px 15px;
+  border: 1px solid #afbbbd;
+  input {
+    margin-left: 4px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #353535;
+    &::placeholder {
+      color: #afbbbd;
+    }
+  }
+}
+
 @mixin button($background-color) {
+  display: flex;
   background-color: $background-color;
   outline: none;
   color: var(--white-color);
   border-radius: 40px;
   padding: 10px 15px;
   font-weight: 700;
+  font-size: 14px;
   img {
     padding-right: 4px;
+  }
+
+  &:hover {
+    opacity: 80%;
+    transition: all 0.15s;
   }
 }

@@ -12,7 +12,6 @@
   button {
     display: flex;
     align-items: center;
-    @include font(14px, 700);
     @include button(var(--turquoise-color));
     margin-right: 20px;
     padding-top: 6px;
