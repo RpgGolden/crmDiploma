@@ -1,0 +1,24 @@
+@import "./../../styles/color.scss";
+@import "./../../styles/mixins.scss";
+
+.HeadMenu {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 18px 20px;
+  background-color: var(--white-color);
+  border-radius: 17px;
+  margin-top: 15px;
+  button {
+    display: flex;
+    align-items: center;
+    @include font(14px, 700);
+    @include button(var(--turquoise-color));
+    margin-right: 20px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    img {
+      margin-right: 4px;
+    }
+  }
+}
