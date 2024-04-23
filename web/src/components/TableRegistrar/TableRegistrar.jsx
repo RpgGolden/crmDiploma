@@ -1,11 +1,42 @@
 import React, { useMemo, useState } from "react";
 import styles from "./TableRegistrar.module.scss";
 import { tableData, tableHead } from "./Data";
+import Table from "./Table";
 
 function TableRegistrar() {
   const tableDataMemo = useMemo(() => tableData, []);
+  const tableHeadMemo = useMemo(() => tableHead, []);
   const [filterShow, setFilterShow] = useState(false);
   const [filtredData, setFiltredData] = useState(tableDataMemo);
+  const [isChecked, setIsChecked] = useState("");
+
+  const genderSelect = (event) => {
+    const { id, checked } = event.target;
+    console.log({ id, checked });
+    if (checked) {
+      setIsChecked(id);
+    } else {
+      setIsChecked("");
+    }
+    genderFilter({ id, checked });
+  };
+
+  const genderFilter = ({ id, checked }) => {
+    setFiltredData(tableDataMemo);
+    if (id === "men" && checked === true) {
+      setFiltredData(
+        tableDataMemo.filter((item) => {
+          return item.gender.toLowerCase().includes("М".toLowerCase());
+        })
+      );
+    } else if (id === "women" && checked === true) {
+      setFiltredData(
+        tableDataMemo.filter((item) => {
+          return item.gender.toLowerCase().includes("Ж".toLowerCase());
+        })
+      );
+    }
+  };
 
   const sherchData = (el) => {
     const query = el.target.value;
@@ -34,8 +65,22 @@ function TableRegistrar() {
           {filterShow && (
             <>
               <label className={styles.labelradio} htmlFor="myRadio">
-                <input type="checkbox" id="men" name="gender" /> Мужской
-                <input type="checkbox" id="women" name="gender" /> Женский
+                <input
+                  type="checkbox"
+                  id="men"
+                  name="gender"
+                  checked={isChecked === "men" ? true : false}
+                  onChange={genderSelect}
+                />{" "}
+                Мужской
+                <input
+                  type="checkbox"
+                  id="women"
+                  name="gender"
+                  checked={isChecked === "women" ? true : false}
+                  onChange={genderSelect}
+                />{" "}
+                Женский
               </label>
               <div className={styles.date}>
                 <input type="date" />
@@ -58,28 +103,10 @@ function TableRegistrar() {
         </div>
       </div>
 
-      <div className={styles.table}>
-        <table>
-          <thead>
-            <tr>
-              {tableHead.map((item) => (
-                <th key={item.key}>{item.value}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {filtredData.map((row) => (
-              <tr key={row.id}>
-                {tableHead.map((el) => (
-                  <td key={el.key}>{row[`${el.key}`]}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table filtredData={filtredData} tableHead={tableHeadMemo} />
+
       <div className={styles.text_length}>
-        <p>Всего строк: {filtredData.length}</p>
+        <p>Всего строк: {tableDataMemo.length}</p>
       </div>
     </div>
   );
