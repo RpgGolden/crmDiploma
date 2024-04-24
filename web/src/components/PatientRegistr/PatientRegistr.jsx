@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./PatientRegistr.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
+import { Link } from "react-router-dom";
 const PatientRegistr = () => {
   return (
     <div>
@@ -39,7 +40,9 @@ const PatientRegistr = () => {
               </label>
             </div>
             <div className={styles.button_box}>
-              <button className={styles.but_left}> Отмена</button>
+              <Link to="./..">
+                <button className={styles.but_left}> Отмена</button>
+              </Link>
               <button className={styles.but_rig}>Зарегистрировать</button>
             </div>
           </div>

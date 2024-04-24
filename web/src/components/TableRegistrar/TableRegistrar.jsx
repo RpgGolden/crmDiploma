@@ -4,7 +4,7 @@ import { tableData, tableHead } from "./Data";
 import Table from "./Table";
 import HeadMenu from "../HeadMenu/HeadMenu";
 
-function TableRegistrar() {
+function TableRegistrar(props) {
   const tableDataMemo = useMemo(() => tableData, []);
   const tableHeadMemo = useMemo(() => tableHead, []);
   const [filterShow, setFilterShow] = useState(false);
@@ -97,9 +97,15 @@ function TableRegistrar() {
     setFiltredData(fd);
   }, [gender, startDate, endDate, search]);
 
+  //! выбор пациента
+  const selectTd = (id) => {
+    console.log(id);
+    props.setSelectClient(id);
+  };
+
   return (
     <div>
-      <HeadMenu state={"home"} />
+      <HeadMenu state={"home"} selctClient={props.selctClient} />
       <div className={styles.TableRegistrar}>
         <div className={styles.head}>
           <div className={styles.filters}>
@@ -148,7 +154,12 @@ function TableRegistrar() {
           </div>
         </div>
 
-        <Table filtredData={filtredData} tableHead={tableHeadMemo} />
+        <Table
+          selctClient={props.selctClient}
+          selectTd={selectTd}
+          filtredData={filtredData}
+          tableHead={tableHeadMemo}
+        />
         <div className={styles.text_length}>
           <p>Всего строк: {filtredData.length}</p>
         </div>

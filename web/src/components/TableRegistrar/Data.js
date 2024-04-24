@@ -10,6 +10,124 @@ export const tableHead = [
   { key: "passport", value: "Паспорт" },
   { key: "registration", value: "Прописка" },
 ];
+export const specialists = [
+  "Врач общей практики (терапевт)",
+  "Кардиолог",
+  "Невролог",
+  "Офтальмолог",
+  "Гастроэнтеролог",
+  "Хирург",
+  "Оториноларинголог (ЛОР)",
+  "Педиатр",
+  "Гинеколог",
+  "Уролог",
+];
+
+export const visitHistory = [
+  {
+    date: "10.04.2024",
+    specialist: "Терапевт",
+    doctor: "Иванова Анна Петровна",
+    result: "Рекомендован курс лечения",
+  },
+  {
+    date: "15.04.2024",
+    specialist: "Окулист",
+    doctor: "Сидоров Павел Иванович",
+    result: "Назначены очки",
+  },
+  {
+    date: "25.04.2024",
+    specialist: "Стоматолог",
+    doctor: "Петров Игорь Сергеевич",
+    result: "Проведена профилактическая чистка зубов",
+  },
+  {
+    date: "05.05.2024",
+    specialist: "Лор",
+    doctor: "Козлова Елена Михайловна",
+    result: "Назначены лекарства от насморка",
+  },
+  {
+    date: "12.05.2024",
+    specialist: "Кардиолог",
+    doctor: "Смирнов Иван Владимирович",
+    result: "Сделаны анализы, рекомендовано уменьшить употребление жирной пищи",
+  },
+];
+
+export const doctors = [
+  {
+    id: 0,
+    surname: "Тапкин",
+    name: "Александр",
+    patronymic: "Витальевич",
+    specialist: "Кардиолог",
+  },
+  {
+    id: 1,
+    surname: "Иванов",
+    name: "Иван",
+    patronymic: "Иванович",
+    specialist: "Терапевт",
+  },
+  {
+    id: 2,
+    surname: "Петров",
+    name: "Петр",
+    patronymic: "Петрович",
+    specialist: "Хирург",
+  },
+  {
+    id: 3,
+    surname: "Сидоров",
+    name: "Сидор",
+    patronymic: "Сидорович",
+    specialist: "Офтальмолог",
+  },
+  {
+    id: 4,
+    surname: "Кузнецов",
+    name: "Кузьма",
+    patronymic: "Кузьмич",
+    specialist: "Невролог",
+  },
+  {
+    id: 5,
+    surname: "Попов",
+    name: "Павел",
+    patronymic: "Павлович",
+    specialist: "Стоматолог",
+  },
+  {
+    id: 6,
+    surname: "Соколов",
+    name: "Сергей",
+    patronymic: "Сергеевич",
+    specialist: "Педиатр",
+  },
+  {
+    id: 7,
+    surname: "Васильев",
+    name: "Василий",
+    patronymic: "Васильевич",
+    specialist: "Гастроэнтеролог",
+  },
+  {
+    id: 8,
+    surname: "Смирнов",
+    name: "Семен",
+    patronymic: "Семенович",
+    specialist: "Дерматолог",
+  },
+  {
+    id: 9,
+    surname: "Морозов",
+    name: "Михаил",
+    patronymic: "Михайлович",
+    specialist: "Уролог",
+  },
+];
 
 export const tableData = [
   {

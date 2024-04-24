@@ -78,7 +78,9 @@
       white-space: nowrap;
       text-align: center;
       margin: 0;
+      cursor: pointer;
     }
+
     td:last-child {
       white-space: wrap;
       text-align: justify;
@@ -96,6 +98,15 @@
     }
     td:nth-child(even) {
       background-color: #e4eaeb;
+    }
+
+    tr:hover {
+      td:nth-child(odd) {
+        background-color: #dddddd;
+      }
+      td:nth-child(even) {
+        background-color: #d2d2d2;
+      }
     }
   }
 

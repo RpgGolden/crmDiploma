@@ -10,7 +10,7 @@ function AuthorRegistrar() {
           <h2>Вход в аккаунт</h2>
           <input type="text" placeholder="Логин"></input>
           <input type="text" placeholder="Пароль"></input>
-          <Link to="/HomePage">
+          <Link to="/Registrar">
             <button className={styles.button}>Войти</button>
           </Link>
         </div>

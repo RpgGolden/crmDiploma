@@ -13,6 +13,20 @@
   padding: 18px 20px;
 }
 
+@mixin pop_up_list($width) {
+  display: flex;
+  justify-content: space-between;
+  width: $width;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid var(--dark-grey-color);
+  border-radius: 8px;
+  padding: 10px 15px;
+  color: var(--dark-grey-color);
+  align-items: center;
+  cursor: pointer;
+}
+
 @mixin font($size, $weight) {
   font-size: $size;
   font-weight: $weight;
