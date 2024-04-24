@@ -28,12 +28,13 @@
       }
 
       .buttonRegister {
-        @include button(var(--turquoise-color));
+        @include button(var(--gray--button--color));
+
       }
 
       .buttonIn{
-        margin-top: 15px;
-        @include button(var(--gray--button--color));
+        margin-bottom: 15px;
+        @include button(var(--turquoise-color));
       }
     }
   }

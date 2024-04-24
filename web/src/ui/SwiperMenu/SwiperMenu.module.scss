@@ -1,0 +1,19 @@
+@import "./../../styles/color.scss";
+
+.SwiperMenu{
+    .SwiperMenublock{
+        border-bottom: 1px solid var( --black--border);
+        display: flex;
+        justify-content: space-between;
+        .SwiperMenublockText{
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 4px;
+            text-align: left;
+        }
+        button{
+            position: relative;
+            top: 35px ;
+        }
+    }
+}

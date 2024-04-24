@@ -37,6 +37,27 @@ function HeadMenu({ state }) {
             </button>
           </Link>
         </div>
+      ) : state === "HomeClient" ? (
+        <div className={styles.HeadMenu}>
+          <Link to="./..">
+            <button>
+              <img src="./../img/add.svg" alt="View" />
+              Записаться на прием
+            </button>
+          </Link>
+          <Link to="./..">
+            <button>
+              <img src="./../img/View.png" alt="View" />
+              Мои записи на прием
+            </button>
+          </Link>
+          <Link to="./..">
+            <button>
+              <img src="./../img/Home.png" alt="View" />
+              Редактировать аккаунт
+            </button>
+          </Link>
+        </div>
       ) : (
         state === "card" && (
           <div className={styles.HeadMenu}>
@@ -56,7 +77,8 @@ function HeadMenu({ state }) {
             </button>
           </div>
         )
-      )}
+      )
+      }
     </>
   );
 }
