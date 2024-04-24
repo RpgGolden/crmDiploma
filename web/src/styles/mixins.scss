@@ -7,6 +7,12 @@
   border-radius: $br;
 }
 
+@mixin container {
+  background-color: #fff;
+  border-radius: 17px;
+  padding: 18px 20px;
+}
+
 @mixin font($size, $weight) {
   font-size: $size;
   font-weight: $weight;

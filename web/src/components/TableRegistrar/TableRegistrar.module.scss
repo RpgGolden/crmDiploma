@@ -19,14 +19,17 @@
     .labelradio {
       display: flex;
       align-items: center;
+
       input {
         width: 20px;
         height: 20px;
         margin: 10px;
+        margin-left: 30px;
       }
     }
 
     .date {
+      margin-left: 30px;
       display: flex;
       flex-direction: row;
       input {
@@ -42,22 +45,76 @@
 
     .search {
       @include img-input-text(415px, 41px);
+      margin-right: 16px;
     }
   }
 
-  .table {
-    overflow-y: auto;
+  .filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 32px;
+  }
+
+  .right_block {
+    display: flex;
+  }
+
+  table {
     width: 100%;
-    height: 633px;
+    border-collapse: collapse; /* Объединяем границы ячеек */
+    border-spacing: 0; /* Устанавливаем отступы между ячейками на 0 */
+  }
+
+  .table {
+    overflow-y: scroll;
+    overflow-x: auto;
+    width: 100%;
+    max-height: 570px;
+
     th,
     td {
-      padding: 7px 27px;
+      padding: 10px 20px;
       white-space: nowrap;
       text-align: center;
+      margin: 0;
     }
     td:last-child {
       white-space: wrap;
       text-align: justify;
     }
+
+    th:nth-child(odd) {
+      background-color: var(--light-turquoise-color);
+    }
+    th:nth-child(even) {
+      background-color: var(--dark-turquoise-color);
+    }
+
+    td:nth-child(odd) {
+      background-color: #f9f9f9;
+    }
+    td:nth-child(even) {
+      background-color: #e4eaeb;
+    }
+  }
+
+  .table::-webkit-scrollbar {
+    width: 10px; /* Ширина вертикальной полосы прокрутки */
+    height: 10px;
+  }
+
+  .table::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Цвет фона полосы прокрутки */
+  }
+
+  .table::-webkit-scrollbar-thumb {
+    background: var(--dark-grey-color); /* Цвет полосы прокрутки */
+  }
+
+  .text_length {
+    padding: 18px 20px;
+    color: var(--dark-grey-color);
+    @include font(14px, 400);
   }
 }
