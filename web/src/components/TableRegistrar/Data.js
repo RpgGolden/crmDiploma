@@ -14,10 +14,10 @@ export const tableHead = [
 export const tableData = [
   {
     id: 0,
-    surname: "Иванов",
-    name: "Иван",
-    patronymic: "Иванович",
-    gender: "М",
+    surname: "Иванова",
+    name: "Ванна",
+    patronymic: "Ивановна",
+    gender: "Ж",
     birthdate: "01.01.1999",
     phone: "8(888)888-88-88",
     snils: "111-111-111 11",

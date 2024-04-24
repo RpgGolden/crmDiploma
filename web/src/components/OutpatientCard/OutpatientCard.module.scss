@@ -1,0 +1,66 @@
+@import "./../../styles/color.scss";
+@import "./../../styles/mixins.scss";
+.OutpatientCard {
+  height: 70vh;
+
+  h2 {
+    @include font(32px, 700);
+  }
+  .scroll_box {
+    height: 60vh;
+    overflow-y: auto;
+  }
+  .scroll_box::-webkit-scrollbar {
+    width: 10px; /* Ширина вертикальной полосы прокрутки */
+  }
+
+  .scroll_box::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Цвет фона полосы прокрутки */
+  }
+
+  .scroll_box::-webkit-scrollbar-thumb {
+    background: var(--dark-grey-color); /* Цвет полосы прокрутки */
+  }
+
+  .container_out {
+    @include container;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+  }
+  .left {
+    margin-right: 90px;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    .td1 {
+      width: 40%;
+    }
+    .td2 {
+      padding-right: 50px;
+    }
+    td {
+      padding: 7px 2px;
+    }
+  }
+
+  .right {
+    width: 70%;
+    table {
+      td {
+        padding: 7px 10px;
+      }
+    }
+    .td_left {
+      @include font(14px, 700);
+    }
+    .table_box {
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--dark-grey-color);
+      button {
+        @include button(var(--turquoise-color));
+        margin-top: 20px;
+      }
+    }
+  }
+}
