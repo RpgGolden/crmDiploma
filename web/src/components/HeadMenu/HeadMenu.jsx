@@ -6,12 +6,14 @@ function HeadMenu({ state }) {
     <>
       {state === "home" ? (
         <div className={styles.HeadMenu}>
-          <button>
-            <img src="./img/View.png" alt="View" />
-            Посмотреть
-          </button>
+          <Link to="./../Registrar/OutpatientCard">
+            <button>
+              <img src="./img/View.png" alt="View" />
+              Посмотреть
+            </button>
+          </Link>
 
-          <Link to="./../HomePage/PatientRegistr">
+          <Link to="./../Registrar/PatientRegistr">
             <button>
               <img src="./img/Add_ring.png" alt="View" />
               Добавить
@@ -36,7 +38,24 @@ function HeadMenu({ state }) {
           </Link>
         </div>
       ) : (
-        <div>w</div>
+        state === "card" && (
+          <div className={styles.HeadMenu}>
+            <Link to="./..">
+              <button>
+                <img src="./../img/Home.png" alt="View" />
+                На главную
+              </button>
+            </Link>
+            <button>
+              <img src="./img/File_dock.png" alt="View" />
+              Записать на прием
+            </button>
+            <button>
+              <img src="./img/Edit.png" alt="View" />
+              Редактировать
+            </button>
+          </div>
+        )
       )}
     </>
   );

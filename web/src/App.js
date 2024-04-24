@@ -5,6 +5,8 @@ import HomePage from "./pages/HomePage/HomePage";
 import TableRegistrar from "./components/TableRegistrar/TableRegistrar";
 import OutpatientCard from "./components/OutpatientCard/OutpatientCard";
 import PatientRegistr from "./components/PatientRegistr/PatientRegistr";
+import Registrar from "./pages/Registrar/Registrar";
+import Client from "./pages/Client/Client";
 
 function App() {
   return (
@@ -12,10 +14,14 @@ function App() {
       <main className="App">
         <Routes>
           <Route path="/" element={<Authorization />}></Route>
-          <Route path="HomePage/*" element={<HomePage />}>
+          <Route path="Registrar/*" element={<Registrar />}>
             <Route path="*" element={<TableRegistrar />}></Route>
             <Route path="PatientRegistr" element={<PatientRegistr />}></Route>
             <Route path="OutpatientCard" element={<OutpatientCard />}></Route>
+          </Route>
+          <Route path="Client/*" element={<Client />}>
+            <Route path="*" element={<TableRegistrar />}></Route>
+            {/* <Route path="PatientRegistr" element={<PatientRegistr />}></Route> */}
           </Route>
         </Routes>
       </main>
