@@ -6,5 +6,6 @@ import { authenticateToken } from '../middlewares/checkToken.js';
 const router = Router();
 
 router.route('/getAll').get(authenticateToken, asyncRoute(patientController.getAll));
+router.route('/update').post(authenticateToken, asyncRoute(patientController.updateProfile));
 
 export default router;

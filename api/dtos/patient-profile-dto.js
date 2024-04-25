@@ -1,3 +1,5 @@
+import { map as genderMap } from '../config/gender.js';
+
 export default class PatientDto {
     id;
     name;
@@ -15,7 +17,7 @@ export default class PatientDto {
         this.name = model.name;
         this.surname = model.surname;
         this.patronymic = model.patronymic;
-        this.gender = model.gender;
+        this.gender = genderMap[model.gender];
         this.passport = model.passport;
         this.snils = model.snils;
         this.birthDate = model.birthDate;

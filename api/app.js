@@ -4,6 +4,10 @@ import corsMiddleware from './middlewares/cors.js';
 import dbUtils from './utils/db.js';
 import authRoute from './routes/auth.js';
 import patientRoute from './routes/patient.js';
+import appointmentRoute from './routes/appointment.js';
+import doctorsRoute from './routes/doctor.js';
+
+import testUtil from './utils/test-data.js';
 
 import 'dotenv/config';
 
@@ -13,6 +17,7 @@ const PORT = process.env.PORT || 3000;
 (async function initDb() {
     try {
         await dbUtils.initializeDbModels();
+        await testUtil.fillDoctors();
     } catch (e) {
         console.log(e);
         console.log('COULD NOT CONNECT TO THE DB, retrying in 5 seconds');
@@ -27,5 +32,7 @@ app.use(corsMiddleware);
 
 app.use('/auth', authRoute);
 app.use('/patient', patientRoute);
+app.use('/doctor', doctorsRoute);
+app.use('/appointment', appointmentRoute);
 
 app.listen(PORT, () => console.log(`Listen on :${PORT}`));
