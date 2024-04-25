@@ -7,6 +7,17 @@
         .container{
             @include container;
             height: 75vh;
+            .Apointments{
+                border-bottom: 1px solid #AFBBBD;
+                .button__div{
+                    display: flex;
+                    .button__divFirst{
+                        margin-right: 20px;
+                        @include button(var(--gray--button--color));
+                    }
+                    margin-bottom: 20px;
+                }
+            }
             button{
                 align-items: center;
                 @include button(var(--turquoise-color));

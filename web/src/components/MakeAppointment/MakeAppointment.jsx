@@ -39,11 +39,11 @@ function MakeAppointment(props) {
               <h1>Запись на прием</h1>
 
               <h4>Данные для записи</h4>
-              <p className={styles.title}>
+              {/* <p className={styles.title}>
                 {tableData[props.selctClient].surname}{" "}
                 {tableData[props.selctClient].name}{" "}
                 {tableData[props.selctClient].patronymic}
-              </p>
+              </p> */}
               <div
                 className={styles.list}
                 onClick={() => setModalSpec(!modalSpec)}
@@ -53,7 +53,7 @@ function MakeAppointment(props) {
                 <img src="./../img/arrow_bottom.svg" alt=">"></img>
               </div>
               {modalSpec && (
-                <div style={{ top: "367px" }} className={styles.modalWindow}>
+                <div style={{ top: "380px" }} className={styles.modalWindow}>
                   <ul>
                     {specialists.map((item) => (
                       <li onClick={() => liclick(item)}>{item}</li>
@@ -77,7 +77,7 @@ function MakeAppointment(props) {
                 <img src="./../img/arrow_bottom.svg" alt=">"></img>
               </div>
               {modalDok && (
-                <div style={{ top: "464px" }} className={styles.modalWindow}>
+                <div style={{ top: "480px" }} className={styles.modalWindow}>
                   <ul>
                     {doctors.map((item) => (
                       <li
@@ -132,7 +132,7 @@ function MakeAppointment(props) {
                   </p>
                 </div>
               </div>
-              <button className={styles.talon_btn}>Распечатать</button>
+              {/* <button className={styles.talon_btn}>Распечатать</button> */}
             </div>
           </div>
         </div>
