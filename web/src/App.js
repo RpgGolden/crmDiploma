@@ -10,6 +10,9 @@ import Client from "./pages/Client/Client";
 import RegisterClient from "./components/RegisterClient/RegisterClient";
 import AuthorizationClient from "./components/AuthorizationClient/AuthorizationClient";
 import HomeClientPage from "./components/HomeClientPage/HomeClientPage";
+import ViewMyAppointment from "./components/ViewMyAppointment/ViewMyAppointment";
+import AccounClient from "./components/AccounClient/AccounClient";
+import MakeAppointment from "./components/MakeAppointment/MakeAppointment";
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
           <Route path="/AuthorizationClient" element={<AuthorizationClient/>}></Route>
           <Route path="Client/*" element={<Client />}>
             <Route path="*" element={<HomeClientPage />}></Route>
+            <Route path="ViewMyAppointment" element={<ViewMyAppointment />}></Route>
+            <Route path="MakeAppointment" element={<MakeAppointment />}></Route>
+            <Route path="AccounClient" element={<AccounClient />}></Route>
           </Route>
         </Routes>
       </main>

@@ -39,19 +39,19 @@ function HeadMenu({ state }) {
         </div>
       ) : state === "HomeClient" ? (
         <div className={styles.HeadMenu}>
-          <Link to="./..">
+          <Link to="MakeAppointment">
             <button>
               <img src="./../img/add.svg" alt="View" />
               Записаться на прием
             </button>
           </Link>
-          <Link to="./..">
+          <Link to="ViewMyAppointment">
             <button>
               <img src="./../img/View.png" alt="View" />
               Мои записи на прием
             </button>
           </Link>
-          <Link to="./..">
+          <Link to="AccounClient">
             <button>
               <img src="./../img/Home.png" alt="View" />
               Редактировать аккаунт
