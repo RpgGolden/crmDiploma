@@ -1,0 +1,16 @@
+@import "./../../styles/color.scss";
+@import "./../../styles/mixins.scss";
+
+.ViewMyAppointment{
+    .box{
+        margin-top: 15px;
+        .container{
+            @include container;
+            height: 75vh;
+            button{
+                align-items: center;
+                @include button(var(--turquoise-color));
+            }
+        }
+    }
+}
