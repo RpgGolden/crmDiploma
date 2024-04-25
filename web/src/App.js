@@ -12,18 +12,64 @@ import AuthorizationClient from "./components/AuthorizationClient/AuthorizationC
 import HomeClientPage from "./components/HomeClientPage/HomeClientPage";
 import ViewMyAppointment from "./components/ViewMyAppointment/ViewMyAppointment";
 import AccounClient from "./components/AccounClient/AccounClient";
+import EditPatient from "./components/EditPatient/EditPatient";
+import { useState } from "react";
 import MakeAppointment from "./components/MakeAppointment/MakeAppointment";
 
 function App() {
+  const [selctClient, setSelectClient] = useState("");
+
   return (
     <BrowserRouter>
       <main className="App">
         <Routes>
           <Route path="/" element={<Authorization />}></Route>
           <Route path="Registrar/*" element={<Registrar />}>
-            <Route path="*" element={<TableRegistrar />}></Route>
-            <Route path="PatientRegistr" element={<PatientRegistr />}></Route>
-            <Route path="OutpatientCard" element={<OutpatientCard />}></Route>
+            <Route
+              path="*"
+              element={
+                <TableRegistrar
+                  selctClient={selctClient}
+                  setSelectClient={setSelectClient}
+                />
+              }
+            ></Route>
+            <Route
+              path="PatientRegistr"
+              element={
+                <PatientRegistr
+                  selctClient={selctClient}
+                  setSelectClient={setSelectClient}
+                />
+              }
+            ></Route>
+            <Route
+              path="OutpatientCard"
+              element={
+                <OutpatientCard
+                  selctClient={selctClient}
+                  setSelectClient={setSelectClient}
+                />
+              }
+            ></Route>
+            <Route
+              path="EditPatient"
+              element={
+                <EditPatient
+                  selctClient={selctClient}
+                  setSelectClient={setSelectClient}
+                />
+              }
+            ></Route>
+            <Route
+              path="MakeAppointment"
+              element={
+                <MakeAppointment
+                  selctClient={selctClient}
+                  setSelectClient={setSelectClient}
+                />
+              }
+            ></Route>
           </Route>
           <Route path="/RegisterClient" element={<RegisterClient/>}></Route>
           <Route path="/AuthorizationClient" element={<AuthorizationClient/>}></Route>

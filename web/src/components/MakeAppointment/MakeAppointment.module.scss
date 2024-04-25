@@ -1,13 +1,141 @@
 @import "./../../styles/color.scss";
 @import "./../../styles/mixins.scss";
 
-.MakeAppointment{
-    .box{
-        margin-top: 15px;
-        .container{
-            @include container;
-            height: 75vh;
-          
-        }
+
+.MakeAppointment {
+  width: 100%;
+  @include container;
+  margin-top: 15px;
+  .data_container {
+    display: flex;
+    flex-direction: row;
+    @include font(21px, 700);
+  }
+  h4 {
+    @include font(21px, 700);
+    padding: 0;
+    margin: 0;
+  }
+  h1 {
+    margin-top: 0px;
+  }
+  .modalWindow {
+    display: flex;
+    position: absolute;
+    background-color: #fff;
+    @include pop_up_list(382px);
+    li {
+      list-style-type: none;
+      padding: 4px 0;
+      margin: 0;
+      @include font(16px, 500);
     }
+    li:hover {
+      background-color: #e6e6e6;
+      border-radius: 8px;
+      color: #000000;
+      padding-left: 5px;
+    }
+    ul {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  .leftbox {
+    display: flex;
+    flex-direction: column;
+    margin-right: 80px;
+
+    img {
+      padding-right: 2px;
+    }
+
+    .list {
+      @include pop_up_list(382px);
+      margin-bottom: 10px;
+    }
+
+    .title {
+      @include font(14px, 400);
+      padding-bottom: 0px;
+      margin-bottom: 4px;
+    }
+    input {
+      @include input-text(382px, 8px);
+      margin: 5px;
+      margin-left: 0;
+      height: 36px;
+      margin-bottom: 10px;
+    }
+  }
+  .rightbox {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      @include input-text(382px, 8px);
+      margin: 5px;
+      margin-left: 0;
+    }
+
+    .talon {
+      display: flex;
+      flex-direction: column;
+      width: 379px;
+      height: 448px;
+      border: 1px solid #c8c8c8;
+      border-radius: 10px;
+      padding: 35px 40px;
+      @include font(14px, 400);
+
+      .talon_title {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-bottom: 30px;
+        p {
+          text-align: center;
+          margin: 6px 0;
+        }
+      }
+      .talon_date {
+        font-weight: 700;
+      }
+      .talon_timse {
+        margin-bottom: 25px;
+      }
+      .talon_kab {
+        font-weight: 700;
+        margin-bottom: 25px;
+      }
+    }
+    .talon_btn {
+      width: 120px;
+      margin-top: 15px;
+      @include button(var(--turquoise-color));
+    }
+  }
+  .bottom_box {
+    display: flex;
+    flex-direction: column;
+  }
+  .label_box {
+    label {
+      padding-right: 20px;
+      @include font(16px, 400);
+    }
+  }
+  .button_box {
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+    .but_left {
+      @include button(var(--dark-grey-color));
+      margin-right: 20px;
+    }
+    .but_rig {
+      @include button(var(--turquoise-color));
+    }
+  }
 }

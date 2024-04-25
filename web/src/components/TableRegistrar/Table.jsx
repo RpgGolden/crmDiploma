@@ -16,7 +16,17 @@ function Table(props) {
           {props.filtredData.map((row) => (
             <tr key={row.id}>
               {props.tableHead.map((el) => (
-                <td key={el.key}>{row[`${el.key}`]}</td>
+                <td
+                  style={
+                    row.id === props.selctClient
+                      ? { backgroundColor: "#C7EBF2" }
+                      : null
+                  }
+                  key={el.key}
+                  onClick={() => props.selectTd(row.id)}
+                >
+                  {row[`${el.key}`]}
+                </td>
               ))}
             </tr>
           ))}
