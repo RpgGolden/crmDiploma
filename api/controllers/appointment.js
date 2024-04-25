@@ -49,9 +49,7 @@ export default {
             time,
         });
 
-        const appointmentDto = new AppointmentDto(appointment);
-
-        res.json(appointmentDto);
+        res.json(appointment);
     },
 
     async deleteAppointment({ params: { id } }, req, res) {
