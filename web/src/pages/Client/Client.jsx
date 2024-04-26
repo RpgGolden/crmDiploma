@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 function Client() {
   return (
     <div>
-      <Header name={"Имя Регистратора"} />
+      <Header name={"Имя Пациента"} />
       <Outlet />
     </div>
   );

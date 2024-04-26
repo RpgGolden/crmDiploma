@@ -1,0 +1,42 @@
+@import "./../../styles/color.scss";
+@import "./../../styles/mixins.scss";
+
+.PopUp{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #10141580;
+    .PopUpInner{
+        background-color: #ffffff;
+        width: 572px;
+        height: 215px;
+        padding: 33px 50px 32px 50px;
+        border-radius: 17px;
+        position: absolute;
+       bottom: 400px;
+       text-align: center;
+       h1{
+        margin: 0;
+       }
+       p{
+        margin-bottom: 40px;
+       }
+       .buttonInner{
+            display: flex;
+            justify-content: center;
+            button{
+                margin: 0 10px;
+                @include button(var(--gray--button--color));
+                align-items: center;
+            }
+            .buttonDel{
+                @include button(var(--turquoise-color));
+                align-items: center;
+            }
+        }
+    }
+}

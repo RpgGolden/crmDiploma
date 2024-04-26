@@ -1,0 +1,39 @@
+@import "./../../styles/color.scss";
+@import "./../../styles/mixins.scss";
+
+
+.HomeClientPage{
+    .box {
+        margin-top: 15px;
+        padding: 36px 106px;
+        background-color: var(--white-color);
+        display: flex;
+        justify-content: space-between;
+        background-color: #fff;
+        border-radius: 17px;
+        width: 100%;
+        .container {
+        display: block;
+        width: 100%;
+            .Reception{
+                display: flex;
+                justify-content: start;
+            }
+            .textContInner{
+                align-items: start!important;
+                @include flexbox-between(17px);
+                .textCont{
+                    width: 630px;
+                    margin-right: 75px;
+                    @include font(16px, 400);
+    
+                }
+            }
+          
+        }
+
+        .textContBlock2{
+            align-items: start;
+        }
+    }
+}
