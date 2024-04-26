@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header/Header";
 import { Outlet } from "react-router-dom";
 
-function HomePage() {
+function Registrar() {
   return (
     <div>
       <Header name={"Имя Регистратора"} />
@@ -11,4 +11,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Registrar;
