@@ -2,11 +2,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./MakeAppointment.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
-import { doctors } from "../TableRegistrar/Data";
 import { GetAllDoctor } from "../../API/API";
 
 function MakeAppointment(props) {
-  const [modalSpec, setModalSpec] = useState(false);
   const [modalDok, setModalDok] = useState(false);
   const [randomNumber, setRandomNumber] = useState(null);
   const [dateDoctor, setdateDoctor] = useState([]);
@@ -41,15 +39,10 @@ function MakeAppointment(props) {
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
-
-    // const Token = [
-    //   {Authorization: accessToken}
-    // ]
-    // console.log("Token", accessToken)
     GetAllDoctor(accessToken).then(response=>{
-      setdateDoctor(response.date)
+      setdateDoctor(response.data)
+      console.log(response.data)
     });
-    console.log(dateDoctor)
   }, []);
 
   return (
@@ -81,7 +74,7 @@ function MakeAppointment(props) {
               {modalDok && (
                 <div style={{ top: "430px" }} className={styles.modalWindow}>
                   <ul>
-                    {doctors.map((item) => (
+                    {dateDoctor.map((item) => (
                       <li
                         onClick={() =>
                           liclickDok(
