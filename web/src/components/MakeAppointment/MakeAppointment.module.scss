@@ -129,16 +129,18 @@
       @include font(16px, 400);
     }
   }
-  .button_box {
-    display: flex;
-    flex-direction: row;
-    padding-top: 20px;
-    .but_left {
-      @include button(var(--dark-grey-color));
-      margin-right: 20px;
-    }
-    .but_rig {
-      @include button(var(--turquoise-color));
-    }
+
+}
+
+.button__cont{
+  display: flex;
+  margin-top: 15px;
+  button{
+    @include button(var(--turquoise-color));
+  }
+  .buttonClear{
+    margin-right: 15px;
+    @include button(var(--gray--button--color));
+
   }
 }

@@ -23,7 +23,7 @@ function App() {
     <BrowserRouter>
       <main className="App">
         <Routes>
-          <Route path="/" element={<Authorization />}></Route>
+          <Route path="Authorization" element={<Authorization />}></Route>
           <Route path="Registrar/*" element={<Registrar />}>
             <Route
               path="*"
@@ -71,15 +71,14 @@ function App() {
               }
             ></Route>
           </Route>
+          <Route path="/" element={<AuthorizationClient/>}></Route>
           <Route path="/RegisterClient" element={<RegisterClient/>}></Route>
-          <Route path="/AuthorizationClient" element={<AuthorizationClient/>}></Route>
           <Route path="Client/*" element={<Client />}>
             <Route path="*" element={<HomeClientPage />}></Route>
             <Route path="ViewMyAppointment" element={<ViewMyAppointment />}></Route>
             <Route path="MakeAppointment" element={<MakeAppointment />}></Route>
             <Route path="AccounClient" element={<AccounClient />}></Route>
             <Route path="EditPatient" element={<EditPatient />}></Route>
-
           </Route>
         </Routes>
       </main>

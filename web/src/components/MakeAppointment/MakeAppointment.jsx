@@ -1,33 +1,57 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./MakeAppointment.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
-import { doctors, specialists, tableData } from "../TableRegistrar/Data";
+import { doctors } from "../TableRegistrar/Data";
+import { GetAllDoctor } from "../../API/API";
 
 function MakeAppointment(props) {
   const [modalSpec, setModalSpec] = useState(false);
   const [modalDok, setModalDok] = useState(false);
+  const [randomNumber, setRandomNumber] = useState(null);
+  const [dateDoctor, setdateDoctor] = useState([]);
+  const [appointmentData, setAppointmentData] = useState({
+    date: "",
+    doctor: "",
+    time: ""
+  });
+  const ClearData =() =>{
+    setAppointmentData({ date: "", doctor: "", time: "" })
+    setRandomNumber(null)
+  }
+  const MakeApoint = () =>{
 
-  const [specialist, setSpecialist] = useState("");
-  const [date, setDate] = useState("");
-  const [doctor, setDoctor] = useState("");
-  const [time, setTime] = useState("");
+  }
+  useEffect(() => {
+    if (appointmentData.date && appointmentData.doctor && appointmentData.time) {
+      const randomNum = Math.floor(Math.random() * 100) + 1;
+      setRandomNumber(randomNum);
+    }
+  }, [appointmentData]);
 
-  const dateSelect = (el) => {
-    setDate(el.target.value);
+  const handleAppointmentDataChange = (key, value) => {
+    setAppointmentData({ ...appointmentData, [key]: value });
+    console.log(appointmentData)
   };
 
-  const selectTime = (el) => {
-    setTime(el.target.value);
-  };
-  const liclick = (text) => {
-    setModalSpec(false);
-    setSpecialist(text);
-  };
   const liclickDok = (text) => {
     setModalDok(false);
-    setDoctor(text);
+    handleAppointmentDataChange("doctor", text);
   };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    // const Token = [
+    //   {Authorization: accessToken}
+    // ]
+    // console.log("Token", accessToken)
+    GetAllDoctor(accessToken).then(response=>{
+      setdateDoctor(response.date)
+    });
+    console.log(dateDoctor)
+  }, []);
+
   return (
     <div>
       <HeadMenu state={"register"} />
@@ -39,45 +63,23 @@ function MakeAppointment(props) {
               <h1>Запись на прием</h1>
 
               <h4>Данные для записи</h4>
-              {/* <p className={styles.title}>
-                {tableData[props.selctClient].surname}{" "}
-                {tableData[props.selctClient].name}{" "}
-                {tableData[props.selctClient].patronymic}
-              </p> */}
-              <div
-                className={styles.list}
-                onClick={() => setModalSpec(!modalSpec)}
-                style={specialist ? { color: "#000" } : null}
-              >
-                {specialist ? specialist : "Специалист"}
-                <img src="./../img/arrow_bottom.svg" alt=">"></img>
-              </div>
-              {modalSpec && (
-                <div style={{ top: "380px" }} className={styles.modalWindow}>
-                  <ul>
-                    {specialists.map((item) => (
-                      <li onClick={() => liclick(item)}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
               <input
-                onChange={dateSelect}
+                onChange={(e) => handleAppointmentDataChange("date", e.target.value)}
                 className={styles.list}
                 type="date"
                 placeholder="Дата"
-                style={date ? { color: "#000" } : null}
+                style={appointmentData.date ? { color: "#000" } : null}
               />
               <div
                 className={styles.list}
                 onClick={() => setModalDok(!modalDok)}
-                style={doctor ? { color: "#000" } : null}
+                style={appointmentData.doctor ? { color: "#000" } : null}
               >
-                {doctor ? doctor : "Врач"}
+                {appointmentData.doctor ? appointmentData.doctor : "Врач"}
                 <img src="./../img/arrow_bottom.svg" alt=">"></img>
               </div>
               {modalDok && (
-                <div style={{ top: "480px" }} className={styles.modalWindow}>
+                <div style={{ top: "430px" }} className={styles.modalWindow}>
                   <ul>
                     {doctors.map((item) => (
                       <li
@@ -87,27 +89,27 @@ function MakeAppointment(props) {
                           )
                         }
                       >
-                        {item.surname} {item.name} {item.patronymic}
+                        {item.surname} {item.name} {item.patronymic}({item.specialist})
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
               <input
-                onChange={selectTime}
-                style={time ? { color: "#000" } : null}
+                onChange={(e) => handleAppointmentDataChange("time", e.target.value)}
+                style={appointmentData.time ? { color: "#000" } : null}
                 className={styles.list}
                 type="time"
                 placeholder="Время"
               />
+              <div className={styles.button__cont}>
+              <button className={styles.buttonClear} onClick={ClearData}>Очистить</button>
+              {randomNumber&& (<button className={styles.talon_btn} onClick={MakeApoint}>Записаться</button>)}
 
-              <div className={styles.bottom_box}>
-                <div className={styles.button_box}>
-                  <button className={styles.but_left}> Отмена</button>
-                  <button className={styles.but_rig}>Записать</button>
-                </div>
               </div>
             </div>
+    
+
 
             <div className={styles.rightbox}>
               <p>Талон на прием</p>
@@ -118,21 +120,18 @@ function MakeAppointment(props) {
                 </div>
                 <div>
                   <p>Талон на прием к врачу №1</p>
-                  <p className={styles.talon_date}>15 марта 2024</p>
-                  <p>Пятница</p>
-                  <p className={styles.talon_timse}>10:00</p>
-                  <p className={styles.talon_timse}>
-                    Иммунология и аллергология
-                  </p>
-                  <p className={styles.talon_timse}>ФИО Врача</p>
-                  <p className={styles.talon_kab}>Кабинет №111</p>
+                  <p className={styles.talon_date}>Дата: {appointmentData.date}</p>
+                  <p className={styles.talon_timse}>Время: {appointmentData.time}</p>
+                  <p className={styles.talon_timse}>Иммунология и аллергология</p>
+                  <p className={styles.talon_timse}>Врач: {appointmentData.doctor}</p>
+                  <p className={styles.talon_kab}>Кабинет №{randomNumber}</p>
                   <p>
                     При невозможности прийти в указанное время просьба сообщить
                     об этом заранее
                   </p>
                 </div>
               </div>
-              {/* <button className={styles.talon_btn}>Распечатать</button> */}
+              {randomNumber&& (<button className={styles.talon_btn}>Распечатать</button>)}
             </div>
           </div>
         </div>

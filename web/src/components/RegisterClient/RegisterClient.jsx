@@ -1,21 +1,102 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./RegisterClient.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Register } from "../../API/API";
 
 function RegisterClient() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    surname: "",
+    patronymic:"",
+    login: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleRegistration = () => {
+    if (
+      formData.name &&
+      formData.surname &&
+      formData.login &&
+      formData.password &&
+      formData.confirmPassword &&
+      formData.password === formData.confirmPassword
+    ) {
+      const { confirmPassword, ...dataWithoutConfirmPassword } = formData;
+      console.log(dataWithoutConfirmPassword);
+      Register(dataWithoutConfirmPassword).then(registeredUserData=>{
+        if(registeredUserData){
+          navigate('/Client');
+      }
+      })
+    } else {
+      alert("Пожалуйста, заполните все поля и убедитесь, что пароли совпадают");
+    }
+  };
+
   return (
     <div className={styles.AuthorRegistrar}>
       <div className={styles.box}>
         <div className={styles.container}>
           <h2>Регистрация аккаунта</h2>
-          <input type="text" placeholder="Фамилия"></input>
-          <input type="text" placeholder="Имя"></input>
-          <input type="text" placeholder="Логин"></input>
-          <input type="text" placeholder="Пароль"></input>
-          <input type="text" placeholder="Пароль"></input>
-          <Link to="/Client">
-            <button className={styles.buttonRegister}>Зарегистрироваться</button>
-          </Link>
+          <input
+            type="text"
+            placeholder="Фамилия"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+          ></input>
+          <input
+            type="text"
+            placeholder="Имя"
+            name="surname"
+            value={formData.surname}
+            onChange={handleInputChange}
+          ></input>
+          <input
+            type="text"
+            placeholder="Отчество"
+            name="patronymic"
+            value={formData.patronymic}
+            onChange={handleInputChange}
+          ></input>
+          <input
+            type="text"
+            placeholder="email"
+            name="login"
+            value={formData.login}
+            onChange={handleInputChange}
+          ></input>
+          <input
+            type="password"
+            placeholder="Пароль"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+          ></input>
+          <input
+            type="password"
+            placeholder="Подтвердите пароль"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleInputChange}
+          ></input>
+          <button
+            className={styles.buttonRegister}
+            onClick={handleRegistration}
+           
+          >
+            Зарегистрироваться
+          </button>
           <Link to="/AuthorizationClient">
             <button className={styles.buttonIn}>Войти</button>
           </Link>
