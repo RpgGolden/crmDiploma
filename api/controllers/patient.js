@@ -14,8 +14,8 @@ export default {
                 },
             });
 
-            console.log(req.user.id);
-            res.json(patients);
+            const patientDto = patients.map(x => new PatientDto(x));
+            res.json(patientDto);
         } catch (error) {
             res.status(500).json({ error: 'Internal server error' });
         }
