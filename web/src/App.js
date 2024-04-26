@@ -78,6 +78,8 @@ function App() {
             <Route path="ViewMyAppointment" element={<ViewMyAppointment />}></Route>
             <Route path="MakeAppointment" element={<MakeAppointment />}></Route>
             <Route path="AccounClient" element={<AccounClient />}></Route>
+            <Route path="EditPatient" element={<EditPatient />}></Route>
+
           </Route>
         </Routes>
       </main>

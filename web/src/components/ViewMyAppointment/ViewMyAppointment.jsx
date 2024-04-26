@@ -3,9 +3,11 @@ import styles from "./ViewMyAppointment.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { Link } from "react-router-dom";
 import { Appointments } from "./data";
+import PopUp from "../../ui/PopUp/PopUp";
 
 function ViewMyAppointment() {
   const [Apointment,SetApointment] = useState([]);
+  const [PopUpHover, SetPopUpHover] = useState(false)
   useEffect(()=>{
     SetApointment(Appointments)
   },[])
@@ -33,7 +35,7 @@ function ViewMyAppointment() {
                   <p><strong>Доктор:</strong> {appointment.doctor}</p>
                   <p><strong>Специальность:</strong> {appointment.specialist}</p>
                   <div className={styles.button__div}>
-                    <button className={styles.button__divFirst}><img src="./../img/Trash.png"/>Отменить прием</button>
+                    <button className={styles.button__divFirst} onClick={()=>SetPopUpHover(!PopUpHover)}><img src="./../img/Trash.png"/>Отменить прием</button>
                     <button><img src="./../img/Edit.png"/>Редактировать</button>
                   </div>
                 </div>
@@ -46,6 +48,7 @@ function ViewMyAppointment() {
               
             </div>
         </div>
+        { PopUpHover && <PopUp title="Отмена приема" subtitle="Вы уверены, что хотите удалить запись?" SetPopUpHover={SetPopUpHover}/>}
     </div>
   );
 }
