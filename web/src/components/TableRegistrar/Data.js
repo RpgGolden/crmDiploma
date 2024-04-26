@@ -23,6 +23,19 @@ export const specialists = [
   "Уролог",
 ];
 
+export const Time=[
+  {time:'8:00', key: 1},
+  {time:'9:00', key: 2},
+  {time:'10:00', key: 3},
+  {time:'11:00', key: 4},
+  {time:'12:00', key: 5},
+  {time:'13:00', key: 6},
+  {time:'14:00', key: 7},
+  {time:'15:00', key: 8},
+  {time:'16:00', key: 9},
+]
+
+
 export const visitHistory = [
   {
     date: "10.04.2024",

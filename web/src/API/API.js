@@ -23,16 +23,14 @@ export const Login = async (UserData) => {
         const response = await axios.post(`${server}/auth/login`, UserData);
         const { accessToken, refreshToken, ...userData } = response.data;
 
-        // Сохранение токенов и информации о пользователе в localStorage
          localStorage.setItem('accessToken', accessToken);
          localStorage.setItem('refreshToken', refreshToken);
-         localStorage.setItem('userData', JSON.stringify(userData));
-
-        return userData;
+         localStorage.setItem('userDataID', userData.id);
+         return userData;
     } catch (error) {
-        // Обработка ошибок, например, вывод сообщения об ошибке на экран
         console.error('Login error:', error);
-        throw error;
+        // throw error;
+        alert("Пользователь не найден!")
     }
 }
 
@@ -46,8 +44,22 @@ export const  GetAllDoctor = async (accessToken) => {
         });
         return response;
     } catch (error) {
-        // Обработка ошибок, например, вывод сообщения об ошибке на экран
         console.error('Login error:', error);
+        throw error;
+    }
+}
+
+//! Записсь на прием
+export const MakeApointmentApi = async (accessToken, data) => {
+    try {
+        const response = await axios.post(`${server}/appointment/create`, data, {
+            headers: {
+                Authorization: accessToken,
+            }
+        });
+        return response;
+    } catch (error) {
+        console.error('Appointment creation error:', error);
         throw error;
     }
 }
