@@ -45,7 +45,6 @@ function MakeAppointment(props) {
 
   const handleAppointmentDataChange = (key, value) => {
     setAppointmentData({ ...appointmentData, [key]: value });
-    console.log(appointmentData)
   };
 
   const liclickDok = (text) => {
@@ -56,7 +55,6 @@ function MakeAppointment(props) {
   useEffect(() => {
     GetAllDoctor(accessToken).then(response=>{
       setdateDoctor(response.data)
-      console.log(response.data)
     });
   }, []);
 
