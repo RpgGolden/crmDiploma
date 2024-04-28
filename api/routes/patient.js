@@ -7,5 +7,5 @@ const router = Router();
 
 router.route('/getAll').get(authenticateToken, asyncRoute(patientController.getAll));
 router.route('/update').post(authenticateToken, asyncRoute(patientController.updateProfile));
-
+router.route('/getPatient').get(authenticateToken, asyncRoute(patientController.getPatient));
 export default router;

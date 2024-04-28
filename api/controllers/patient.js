@@ -49,4 +49,16 @@ export default {
 
         res.json(patientDto);
     },
+    async getPatient(req, res) {
+        const user = req.user.id;
+
+        const patient = await Patient.findOne({ where: { userId: user } });
+        if (!patient) {
+            throw new AppErrorMissing('Patient not found');
+        }
+
+        const patientDto = new PatientDto(patient);
+
+        res.json(patientDto);
+    },
 };
