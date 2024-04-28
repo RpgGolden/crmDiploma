@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./MakeAppointment.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
-import { GetAllDoctor, MakeApointmentApi } from "../../API/API";
+import { GetAllDoctor, MakeApointmentApi, PatientGetId } from "../../API/API";
 import { Time } from "../TableRegistrar/Data";
 
 function MakeAppointment(props) {
@@ -12,7 +12,7 @@ function MakeAppointment(props) {
   const [dateDoctor, setdateDoctor] = useState([]);
   const accessToken = localStorage.getItem('accessToken'); 
   const userDataID = localStorage.getItem('userDataID'); 
-
+  const objUserData= [{ user: userDataID}];
   const [appointmentData, setAppointmentData] = useState({
     date: "",
     doctor: "",
@@ -55,6 +55,9 @@ function MakeAppointment(props) {
   useEffect(() => {
     GetAllDoctor(accessToken).then(response=>{
       setdateDoctor(response.data)
+    });
+    PatientGetId(accessToken, objUserData).then(response=>{
+      console.log('PatientGetId', response)
     });
   }, []);
 
