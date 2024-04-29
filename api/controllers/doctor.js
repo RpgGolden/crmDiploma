@@ -1,6 +1,6 @@
 import Doctor from '../models/doctor.js';
 import Appointment from '../models/appointment.js';
-import Patient from '../models/patient.js';
+import User from '../models/user.js';
 import DoctorProfileDto from '../dtos/doctor-profile-dto.js';
 export default {
     async getAll(req, res) {
@@ -9,7 +9,7 @@ export default {
                 model: Appointment,
                 include: [
                     {
-                        model: Patient,
+                        model: User,
                     },
                 ],
             },
