@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styles from "./OutpatientCard.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
-import { tableData, tableHead, visitHistory } from "../TableRegistrar/Data";
+import { tableHead, visitHistory } from "../TableRegistrar/Data";
 function OutpatientCard(props) {
-  const [cardData, setCardData] = useState(tableData[props.selctClient]);
+  const [cardData, setCardData] = useState(props.clientData);
   const [rowName, setRowName] = useState(tableHead);
   const [history, setHistory] = useState(visitHistory);
   console.log(cardData);

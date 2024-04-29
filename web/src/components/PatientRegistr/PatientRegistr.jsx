@@ -2,7 +2,30 @@ import React from "react";
 import styles from "./PatientRegistr.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { Link } from "react-router-dom";
+import { CreatePatient } from "../../API/API";
+
 const PatientRegistr = () => {
+  const accessToken = localStorage.getItem("accessToken");
+
+  //! регистрация пациента
+  const clientReg = () => {
+    console.log("clientReg", accessToken);
+    const data = {
+      surname: "Иванов",
+      name: "Иван",
+      patronymic: "Иванович",
+      gender: "М",
+      birthDate: "01.01.1999",
+      phoneNumber: "8(888)888-88-88",
+      snils: "111-111-111 11",
+      oms: "1111 1111 1111 1111",
+      passport: "6666 666666",
+      registration: "Ростовсквя обл, г. Таганрог, ул. Никрасовская д. 26а",
+    };
+    CreatePatient(accessToken, data).then((responce) => {
+      console.log(responce);
+    });
+  };
   return (
     <div>
       <HeadMenu state={"register"} />
@@ -43,7 +66,9 @@ const PatientRegistr = () => {
               <Link to="./..">
                 <button className={styles.but_left}> Отмена</button>
               </Link>
-              <button className={styles.but_rig}>Зарегистрировать</button>
+              <button className={styles.but_rig} onClick={clientReg}>
+                Зарегистрировать
+              </button>
             </div>
           </div>
         </div>

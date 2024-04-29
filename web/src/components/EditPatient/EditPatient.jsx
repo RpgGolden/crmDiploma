@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EditPatient.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
-import { tableData } from "../TableRegistrar/Data";
 const EditPatient = (props) => {
-  const [cardData, setCardData] = useState(tableData[props.selctClient]);
-  const [CheckedStatus, setCheckedStatus] = useState(1);
-
+  const [cardData, setCardData] = useState(props.clientData);
+  useEffect(() => {
+    //поучить пацента по id
+  }, []);
   //   const [searchText, setSearchText] = useState("");
 
   const handleInput = (el, key) => {
@@ -21,9 +21,9 @@ const EditPatient = (props) => {
     setCardData(cardData);
   };
 
-  useEffect(()=>{
-    console.log(CheckedStatus)
-  },CheckedStatus)
+  // useEffect(()=>{
+  //   console.log(CheckedStatus)
+  // },CheckedStatus)
   return (
     <div>
       <HeadMenu state={"register"} />
@@ -97,22 +97,22 @@ const EditPatient = (props) => {
             <h2>Пол</h2>
             <div className={styles.label_box}>
               <label>
-                  <input
+                <input
                   type="checkbox"
                   name="МУЖ"
                   checked={cardData.gender === 1}
                   onChange={() => setCardData({ ...cardData, gender: 1 })}
-                />               
-              Мужской
+                />
+                Мужской
               </label>
               <label>
-              <input
+                <input
                   type="checkbox"
                   name="ЖЕН"
                   checked={cardData.gender === 2}
                   onChange={() => setCardData({ ...cardData, gender: 2 })}
-                />               
-                 Женский
+                />
+                Женский
               </label>
             </div>
             <div className={styles.button_box}>

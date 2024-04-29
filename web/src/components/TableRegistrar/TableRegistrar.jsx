@@ -1,26 +1,28 @@
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "./TableRegistrar.module.scss";
-import { tableData, tableHead } from "./Data";
+import { tableHead } from "./Data";
 import Table from "./Table";
 import HeadMenu from "../HeadMenu/HeadMenu";
-import { GetAllUsers } from "../../API/API";
 
 function TableRegistrar(props) {
-  const tableDataMemo = useMemo(() => tableData, []);
   const tableHeadMemo = useMemo(() => tableHead, []);
+
   const [filterShow, setFilterShow] = useState(false);
-  const [filtredData, setFiltredData] = useState(tableDataMemo);
+  const [filtredData, setFiltredData] = useState(props.tableData);
   const [isChecked, setIsChecked] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [gender, setGender] = useState({});
   const [search, setSearch] = useState("");
-  const accessToken = localStorage.getItem('accessToken'); 
 
   const handleStartDateChange = (event) => {
     const selectedStartDate = event.target.value;
     setStartDate(selectedStartDate);
   };
+
+  useEffect(() => {
+    setFiltredData([...props.tableData]);
+  }, [props.tableData]);
 
   //! филтрация по дате рождения
   const handleEndDateChange = (event) => {
@@ -41,7 +43,7 @@ function TableRegistrar(props) {
 
       return filtered;
     } else {
-      return tableDataMemo;
+      return props.tableData;
     }
   };
 
@@ -76,7 +78,7 @@ function TableRegistrar(props) {
 
   //! функция фильтрации
   useEffect(() => {
-    let fd = tableDataMemo;
+    let fd = props.tableData;
     setFiltredData(fd);
 
     if (search) {
@@ -104,14 +106,7 @@ function TableRegistrar(props) {
     console.log(id);
     props.setSelectClient(id);
   };
-  useEffect(()=>{
-    console.log("accessToken",accessToken)
-     GetAllUsers(accessToken).then(response=>{
-      console.log(response)
-    })
 
-    
-  },[])
   return (
     <div>
       <HeadMenu state={"home"} selctClient={props.selctClient} />
