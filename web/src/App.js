@@ -15,11 +15,19 @@ import AccounClient from "./components/AccounClient/AccounClient";
 import EditPatient from "./components/EditPatient/EditPatient";
 import { useState } from "react";
 import MakeAppointment from "./components/MakeAppointment/MakeAppointment";
+import DataContext from "./context";
 
 function App() {
   const [selctClient, setSelectClient] = useState("");
-
+  const [userData, setUserData]= useState(null);
   return (
+    <DataContext.Provider
+      value={{
+        userData,
+        setUserData
+      }}
+    >
+
     <BrowserRouter>
       <main className="App">
         <Routes>
@@ -83,6 +91,7 @@ function App() {
         </Routes>
       </main>
     </BrowserRouter>
+    </DataContext.Provider>
   );
 }
 

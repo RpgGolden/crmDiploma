@@ -1,0 +1,9 @@
+@import "./../../styles/color.scss";
+@import "./../../styles/mixins.scss";
+
+
+
+    .buttonApoint{
+        align-items: center;
+        @include button(var(--turquoise-color));
+    }

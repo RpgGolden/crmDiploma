@@ -5,18 +5,14 @@ import SwiperMenu from "../../ui/SwiperMenu/SwiperMenu";
 import Reception from "../Reception/Reception";
 function HomeClientPage() {
 
-    const dataZap={
-        date: "26.04.2024",
-        specialist: "Хирург высшегго ранга",
-        doctor: "Иванов Иван Иванович",
-    }
+
   return (
     <div className={styles.HomeClientPage}>
         <HeadMenu state={"HomeClient"}/>
         <div className={styles.box}>
             <div className={styles.container}>
                 <div className={styles.Reception}>
-                    <Reception data={dataZap}/>
+                    <Reception/>
                 </div>
                 <div className={styles.textContInner}>
                     <div className={styles.textCont}>
