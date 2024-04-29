@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./MakeAppointment.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
-import { GetAllDoctor, MakeApointmentApi, PatientGetId } from "../../API/API";
+import { GetAllDoctor, MakeApointmentApi } from "../../API/API";
 import { Time } from "../TableRegistrar/Data";
 
 function MakeAppointment(props) {
@@ -11,8 +11,8 @@ function MakeAppointment(props) {
   const [randomNumber, setRandomNumber] = useState(null);
   const [dateDoctor, setdateDoctor] = useState([]);
   const accessToken = localStorage.getItem('accessToken'); 
+  console.log(accessToken)
   const userDataID = localStorage.getItem('userDataID'); 
-  const objUserData= [{ user: userDataID}];
   const [appointmentData, setAppointmentData] = useState({
     date: "",
     doctor: "",
@@ -47,17 +47,10 @@ function MakeAppointment(props) {
     setAppointmentData({ ...appointmentData, [key]: value });
   };
 
-  const liclickDok = (text) => {
-    setModalDok(false);
-    handleAppointmentDataChange("doctor", text);
-  };
 
   useEffect(() => {
     GetAllDoctor(accessToken).then(response=>{
       setdateDoctor(response.data)
-    });
-    PatientGetId(accessToken, objUserData).then(response=>{
-      console.log('PatientGetId', response)
     });
   }, []);
 

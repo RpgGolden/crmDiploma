@@ -91,17 +91,17 @@ export const PatientGetData = async (accessToken) => {
     }
 }
 
-//!получение пациента
-export const PatientGetId = async (accessToken, data) => {
-    try {
-        const response = await axios.get(`${server}/getPatient`, data,{
-            headers: {
-                Authorization: accessToken,
-            }
-        });
-        return response;
-    } catch (error) {
-        console.error('Appointment creation error:', error);
-        throw error;
-    }
-}
+// //!получение пациента
+// export const PatientGetId = async (accessToken, data) => {
+//     try {
+//         const response = await axios.get(`${server}/getPatient`, data,{
+//             headers: {
+//                 Authorization: accessToken,
+//             }
+//         });
+//         return response;
+//     } catch (error) {
+//         console.error('Appointment creation error:', error);
+//         throw error;
+//     }
+// }
