@@ -97,7 +97,7 @@ function RegisterClient() {
           >
             Зарегистрироваться
           </button>
-          <Link to="/AuthorizationClient">
+          <Link to="/">
             <button className={styles.buttonIn}>Войти</button>
           </Link>
         </div>

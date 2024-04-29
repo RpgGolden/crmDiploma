@@ -11,6 +11,8 @@ function MakeAppointment(props) {
   const [randomNumber, setRandomNumber] = useState(null);
   const [dateDoctor, setdateDoctor] = useState([]);
   const accessToken = localStorage.getItem('accessToken'); 
+  const userID = localStorage.getItem('userDataID'); 
+
   const [appointmentData, setAppointmentData] = useState({
     date: "",
     doctor: "",
@@ -23,14 +25,16 @@ function MakeAppointment(props) {
     setRandomNumber(null)
   }
   const MakeApoint = () =>{
-    const data =[
-      {doctorId:appointmentData.doctor},
-      {date:appointmentData.date},
-      {time:appointmentData.time},
-    ]
-
+    const data =
+      {
+        doctorId:appointmentData.doctor,
+        date:appointmentData.date,
+        time:appointmentData.time
+      }
     MakeApointmentApi(accessToken,data).then(response=>{
       console.log("response", response.status)
+      ClearData();
+      alert("Заявка успешно создана")
     });
   }
   useEffect(() => {
@@ -82,8 +86,10 @@ function MakeAppointment(props) {
                   <ul>
                     {dateDoctor.map((item) => (
                       <li
-                      onClick={() => setAppointmentData({...appointmentData, doctor:item.id, doctorName:`${item.surname} ${item.name} ${item.patronymic}`})}
-                      > 
+                      onClick={() => {
+                        setAppointmentData({...appointmentData, doctor:item.id, doctorName:`${item.surname} ${item.name} ${item.patronymic}`});
+                        setModalDok(!modalDok);
+                      }}                      > 
                         {item.surname} {item.name} {item.patronymic}({item.specialist})
                       </li>
                     ))}

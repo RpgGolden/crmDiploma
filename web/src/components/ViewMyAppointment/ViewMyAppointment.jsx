@@ -2,26 +2,28 @@ import React, { useEffect, useState } from "react";
 import styles from "./ViewMyAppointment.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { Link } from "react-router-dom";
-// import { Appointments } from "./data";
+import { Appointments } from "./data";
 import PopUp from "../../ui/PopUp/PopUp";
 import { GetAllApointment } from "../../API/API";
 
 function ViewMyAppointment() {
-  const [Apointment,SetApointment] = useState([]);
-  const [PopUpHover, SetPopUpHover] = useState(false)
-  const accessToken = localStorage.getItem('accessToken'); 
-  useEffect(()=>{
-     GetAllApointment(accessToken).then(response=>{
-      SetApointment(response.data)
-     });
-  },[])
- 
+    const accessToken = localStorage.getItem('accessToken'); 
+    const [appointmentData, setAppointmentData] = useState([]);
+    const [indexPopUp, setindexPopUp] = useState(null);
+
+    useEffect(()=>{
+       GetAllApointment(accessToken).then(response=>{
+        setAppointmentData(response.data)
+       });
+       console.log(indexPopUp)
+    },[indexPopUp])
+
   return (
     <div className={styles.ViewMyAppointment}>
        <HeadMenu state={"ViewMyAppointment"}/>
        <div className={styles.box}>
             <div className={styles.container}>
-            {Apointment.length === 0 ? (
+            {appointmentData.length === 0 ? (
               <div className={styles.container}>
                 <h1>У вас еще нет активных записей на прием</h1>
                 <Link to="/Client/MakeAppointment">
@@ -32,14 +34,14 @@ function ViewMyAppointment() {
             (
               <div >
               <h1>Записи на прием</h1>
-              {Apointment.map((appointment, index) => (
+              {appointmentData.map((appointment, index) => (
                 <div key={index} className={styles.Apointments}>
-                  <p><strong>Дата:</strong> {appointment.date}</p>
-                  <p><strong>Время:</strong> {appointment.time}</p>
-                  <p><strong>Доктор:</strong> {appointment.doctor}</p>
-                  <p><strong>Специальность:</strong> {appointment.specialist}</p>
+                  <p><strong>Дата:</strong> {appointmentData[index].date}</p>
+                  <p><strong>Время:</strong> {appointmentData[index].time}</p>
+                  <p><strong>Доктор:</strong> {`${appointmentData[index].doctor.surname} ${appointmentData[index].doctor.name} ${appointmentData[index].doctor.patrunymic}`}</p>
+                  <p><strong>Специальность:</strong> {appointmentData[index].doctor.specialist}</p>
                   <div className={styles.button__div}>
-                    <button className={styles.button__divFirst} onClick={()=>SetPopUpHover(!PopUpHover)}><img src="./../img/Trash.png"/>Отменить прием</button>
+                    <button className={styles.button__divFirst} onClick={() => setindexPopUp(index)}><img src="./../img/Trash.png"/>Отменить прием</button>
                     <button><img src="./../img/Edit.png"/>Редактировать</button>
                   </div>
                 </div>
@@ -52,7 +54,7 @@ function ViewMyAppointment() {
               
             </div>
         </div>
-        { PopUpHover && <PopUp title="Отмена приема" subtitle="Вы уверены, что хотите удалить запись?" SetPopUpHover={SetPopUpHover}/>}
+        { indexPopUp != null && <PopUp title="Отмена приема" subtitle="Вы уверены, что хотите удалить запись?" indexPopUp={indexPopUp} setindexPopUp={setindexPopUp} appointmentData={appointmentData}/>}
     </div>
   );
 }

@@ -32,7 +32,6 @@ export const Time=[
   {time:'13:00', key: 6},
   {time:'14:00', key: 7},
   {time:'15:00', key: 8},
-  {time:'16:00', key: 9},
 ]
 
 
