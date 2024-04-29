@@ -3,24 +3,16 @@ import Doctor from '../models/doctor.js';
 import { AppErrorAlreadyExists, AppErrorMissing } from '../utils/errors.js';
 import AppointmentDto from '../dtos/appointment-dto.js';
 import Patient from '../models/patient.js';
+import User from '../models/user.js';
 
 export default {
     async getAll(req, res) {
         const userId = req.user.id;
 
-        // Найти пациента по userId
-        const patient = await Patient.findOne({ where: { userId } });
-        if (!patient) {
-            return res.status(404).json({ error: 'Patient not found' });
-        }
-
         // Найти все записи на прием для найденного пациента
         const appointments = await Appointment.findAll({
-            where: { patientId: patient.id },
-            include: [
-                { model: Doctor },
-                Patient, // Необязательно, так как мы уже знаем пациента
-            ],
+            where: { userId: userId },
+            include: [{ model: Doctor }, User],
         });
 
         // Создать объекты DTO для всех записей на прием
@@ -31,7 +23,7 @@ export default {
     },
 
     async createAppointment(req, res) {
-        const user = req.user.id;
+        const userId = req.user.id;
         const data = req.body;
 
         const { doctorId, date, time } = data;
@@ -40,8 +32,13 @@ export default {
         if (!doctor) {
             throw new AppErrorMissing('Doctor not found');
         }
-        const patient = await Patient.findOne({ where: { userId: user } });
-
+        const user = await User.findByPk(userId, { include: Patient });
+        if (!user) {
+            throw new AppErrorMissing('User not found');
+        }
+        const patient = await Patient.findOne({ where: { userId: userId } });
+        // const patient = await Patient.findOne({ where: { userId: user } });
+        console.log(patient);
         const existingAppointment = await Appointment.findOne({
             where: {
                 doctorId,
@@ -55,12 +52,13 @@ export default {
 
         const appointment = await Appointment.create({
             doctorId,
-            patientId: patient.id,
+            // patientId: patient.id,
+            userId: userId,
             date,
             time,
         });
 
-        await appointment.reload({ include: [Patient, Doctor] });
+        await appointment.reload({ include: [Doctor, User] });
 
         const appointmentDto = new AppointmentDto(appointment);
 

@@ -12,7 +12,7 @@ export default class Appointment extends Model {
                     allowNull: false,
                     primaryKey: true,
                 },
-                patientId: {
+                userId: {
                     type: DataTypes.UUID,
                     allowNull: false,
                 },

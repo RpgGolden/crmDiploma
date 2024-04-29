@@ -9,8 +9,11 @@ export default function () {
     User.hasOne(Patient, { foreignKey: 'userId' });
     Patient.belongsTo(User, { foreignKey: 'userId' });
 
-    Patient.hasMany(Appointment, { foreignKey: 'patientId' });
-    Appointment.belongsTo(Patient, { foreignKey: 'patientId' });
+    // Patient.hasMany(Appointment, { foreignKey: 'patientId' });
+    // Appointment.belongsTo(Patient, { foreignKey: 'patientId' });
+
+    User.hasMany(Appointment, { foreignKey: 'userId' });
+    Appointment.belongsTo(User, { foreignKey: 'userId' });
 
     Doctor.hasMany(Appointment, { foreignKey: 'doctorId' });
     Appointment.belongsTo(Doctor, { foreignKey: 'doctorId' });
