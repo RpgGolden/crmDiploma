@@ -52,6 +52,9 @@ function AuthorizationClient() {
           <Link to="/RegisterClient">
             <button className={styles.buttonRegister}>Создать профиль</button>
           </Link>
+          <Link to="/Authorization">
+            <p>Вход для регистратора</p>
+          </Link>
         </div>
       </div>
     </div>

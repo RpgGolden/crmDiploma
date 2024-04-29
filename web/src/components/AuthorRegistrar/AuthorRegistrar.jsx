@@ -13,6 +13,9 @@ function AuthorRegistrar() {
           <Link to="/Registrar">
             <button className={styles.button}>Войти</button>
           </Link>
+          <Link to="/">
+            <p>Вход для клиентов</p>
+          </Link>
         </div>
       </div>
     </div>
