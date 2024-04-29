@@ -4,7 +4,7 @@ import User from '../models/user.js';
 
 const checkRole = allowedRoles => {
     return async (req, res, next) => {
-        const user = await User.findByPk(req.user);
+        const user = await User.findByPk(req.user.id);
 
         if (user.role && (allowedRoles.some(role => user.role === role) || user.role === roles.ADMINISTRATOR)) {
             next();

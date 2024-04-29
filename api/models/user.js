@@ -14,14 +14,23 @@ export default class User extends Model {
                 name: {
                     type: DataTypes.STRING,
                     allowNull: false,
+                    validate: {
+                        is: /^[А-Я][а-я]*$/,
+                    },
                 },
                 surname: {
                     type: DataTypes.STRING,
                     allowNull: false,
+                    validate: {
+                        is: /^[А-Я][а-я]*$/,
+                    },
                 },
                 patronymic: {
                     type: DataTypes.STRING,
                     allowNull: false,
+                    validate: {
+                        is: /^[А-Я][а-я]*$/,
+                    },
                 },
                 login: {
                     type: DataTypes.STRING,
