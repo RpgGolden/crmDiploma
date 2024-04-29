@@ -32,13 +32,10 @@ export default {
         if (!doctor) {
             throw new AppErrorMissing('Doctor not found');
         }
-        const user = await User.findByPk(userId, { include: Patient });
+        const user = await User.findByPk(userId);
         if (!user) {
             throw new AppErrorMissing('User not found');
         }
-        const patient = await Patient.findOne({ where: { userId: userId } });
-        // const patient = await Patient.findOne({ where: { userId: user } });
-        console.log(patient);
         const existingAppointment = await Appointment.findOne({
             where: {
                 doctorId,
@@ -52,7 +49,6 @@ export default {
 
         const appointment = await Appointment.create({
             doctorId,
-            // patientId: patient.id,
             userId: userId,
             date,
             time,
