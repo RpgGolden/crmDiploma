@@ -4,7 +4,7 @@ import { AppErrorAlreadyExists, AppErrorMissing } from '../utils/errors.js';
 import AppointmentDto from '../dtos/appointment-dto.js';
 import Patient from '../models/patient.js';
 import User from '../models/user.js';
-import decodeAccessTokenAndGetUserId from '../utils/jwt.js';
+import jwtUtils from '../utils/jwt.js';
 
 export default {
     async getAll(req, res) {
@@ -23,64 +23,20 @@ export default {
         res.json(appointmentsDto);
     },
 
-    // async createAppointment(req, res) {
-    //     const userId = req.user.id;
-    //     const data = req.body;
-
-    //     const { doctorId, date, time } = data;
-
-    //     const doctor = await Doctor.findOne({ where: { id: data.doctorId } });
-    //     if (!doctor) {
-    //         throw new AppErrorMissing('Doctor not found');
-    //     }
-    //     const user = await User.findByPk(userId);
-    //     if (!user) {
-    //         throw new AppErrorMissing('User not found');
-    //     }
-    //     const existingAppointment = await Appointment.findOne({
-    //         where: {
-    //             doctorId,
-    //             date,
-    //             time,
-    //         },
-    //     });
-    //     if (existingAppointment) {
-    //         throw new AppErrorAlreadyExists('Appointment already exists');
-    //     }
-
-    //     const appointment = await Appointment.create({
-    //         doctorId,
-    //         userId: userId,
-    //         date,
-    //         time,
-    //     });
-
-    //     await appointment.reload({ include: [Doctor, User] });
-
-    //     const appointmentDto = new AppointmentDto(appointment);
-
-    //     res.json(appointmentDto);
-    // },
     async createAppointment(req, res) {
-        const accessToken = req.headers.authorization; // Получаем токен доступа из заголовка запроса
-
-        // Декодируем токен доступа, чтобы получить информацию о пользователе, включая его идентификатор (userId)
-        const userId = decodeAccessTokenAndGetUserId(accessToken);
-
+        const userId = req.user.id;
         const data = req.body;
+
         const { doctorId, date, time } = data;
 
         const doctor = await Doctor.findOne({ where: { id: data.doctorId } });
         if (!doctor) {
             throw new AppErrorMissing('Doctor not found');
         }
-
-        // Проверяем наличие пользователя в базе данных (ваша логика аутентификации)
         const user = await User.findByPk(userId);
         if (!user) {
             throw new AppErrorMissing('User not found');
         }
-
         const existingAppointment = await Appointment.findOne({
             where: {
                 doctorId,
