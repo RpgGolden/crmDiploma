@@ -4,7 +4,6 @@ import { AppErrorAlreadyExists, AppErrorMissing } from '../utils/errors.js';
 import AppointmentDto from '../dtos/appointment-dto.js';
 import Patient from '../models/patient.js';
 import User from '../models/user.js';
-import jwtUtils from '../utils/jwt.js';
 
 export default {
     async getAll(req, res) {
@@ -25,6 +24,7 @@ export default {
 
     async createAppointment(req, res) {
         const userId = req.user.id;
+
         const data = req.body;
 
         const { doctorId, date, time } = data;
