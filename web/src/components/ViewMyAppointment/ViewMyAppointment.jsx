@@ -2,16 +2,20 @@ import React, { useEffect, useState } from "react";
 import styles from "./ViewMyAppointment.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { Link } from "react-router-dom";
-import { Appointments } from "./data";
+// import { Appointments } from "./data";
 import PopUp from "../../ui/PopUp/PopUp";
+import { GetAllApointment } from "../../API/API";
 
 function ViewMyAppointment() {
   const [Apointment,SetApointment] = useState([]);
   const [PopUpHover, SetPopUpHover] = useState(false)
+  const accessToken = localStorage.getItem('accessToken'); 
   useEffect(()=>{
-    SetApointment(Appointments)
+     GetAllApointment(accessToken).then(response=>{
+      SetApointment(response.data)
+     });
   },[])
-
+ 
   return (
     <div className={styles.ViewMyAppointment}>
        <HeadMenu state={"ViewMyAppointment"}/>

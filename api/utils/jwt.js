@@ -48,7 +48,7 @@ export default {
 
         try {
             // Декодируем токен доступа и извлекаем из него идентификатор пользователя (userId)
-            const decodedToken = jwt.verify(accessToken, 'your_secret_key'); // Замените 'your_secret_key' на ваш секретный ключ
+            const decodedToken = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET ); // Замените 'your_secret_key' на ваш секретный ключ
             const userId = decodedToken.id; // Предполагается, что в токене есть поле с идентификатором пользователя
             return userId;
         } catch (error) {

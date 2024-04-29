@@ -4,8 +4,7 @@ import { AppErrorAlreadyExists, AppErrorMissing } from '../utils/errors.js';
 import AppointmentDto from '../dtos/appointment-dto.js';
 import Patient from '../models/patient.js';
 import User from '../models/user.js';
-import decodeAccessTokenAndGetUserId from '../utils/jwt.js';
-
+import jwtUtils from '../utils/jwt.js'
 export default {
     async getAll(req, res) {
         const userId = req.user.id;
@@ -65,7 +64,7 @@ export default {
         const accessToken = req.headers.authorization; // Получаем токен доступа из заголовка запроса
 
         // Декодируем токен доступа, чтобы получить информацию о пользователе, включая его идентификатор (userId)
-        const userId = decodeAccessTokenAndGetUserId(accessToken);
+        const userId = jwtUtils.decodeAccessTokenAndGetUserId(accessToken);
 
         const data = req.body;
         const { doctorId, date, time } = data;

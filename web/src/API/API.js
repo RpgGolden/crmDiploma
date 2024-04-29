@@ -44,11 +44,9 @@ export const  GetAllDoctor = async (accessToken) => {
     }
 }
 
+
 //! Записсь на прием
 export const MakeApointmentApi = async (accessToken, data) => {
-    console.log('data', data)
-    console.log('accessToken', accessToken)
-
     try {
         const response = await axios.post(`${server}/appointment/create`, data, {
             headers: {
@@ -90,6 +88,22 @@ export const PatientGetData = async (accessToken) => {
         throw error;
     }
 }
+// //!получение всех записей пациента
+
+export const  GetAllApointment = async (accessToken) => {
+    try {
+        const response = await axios.get(`${server}/appointment/getAll`,{
+            headers:{
+                Authorization: `${accessToken}`,
+            },
+        });
+        return response;
+    } catch (error) {
+        console.error('Login error:', error);
+        throw error;
+    }
+}
+
 
 // //!получение пациента
 // export const PatientGetId = async (accessToken, data) => {
