@@ -1,5 +1,3 @@
-import PatientProfileDto from './patient-profile-dto.js';
-
 export default class UserProfileDto {
     id;
     name;

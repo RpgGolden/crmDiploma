@@ -26,16 +26,13 @@ export default {
 
         const data = req.body;
 
-        const { name, surname, patronymic, gender, passport, snils, birthDate, phoneNumber, oms, registration } = data;
+        const { gender, passport, snils, birthDate, phoneNumber, oms, registration } = data;
 
         const patient = await Patient.findOne({ where: { userId: user } });
         if (!patient) {
             throw new AppErrorMissing('Patient not found');
         }
         await patient.update({
-            name,
-            surname,
-            patronymic,
             gender,
             passport,
             snils,
