@@ -8,7 +8,6 @@ import User from '../models/user.js';
 export default {
     async getAll(req, res) {
         const userId = req.user.id;
-
         // Найти все записи на прием для найденного пациента
         const appointments = await Appointment.findAll({
             where: { userId: userId },
