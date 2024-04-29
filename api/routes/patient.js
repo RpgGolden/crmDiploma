@@ -27,4 +27,18 @@ router
         asyncRoute(checkRole([role.ADMINISTRATOR, role.REGISTRATOR, role.PATIENT])),
         asyncRoute(patientController.getPatient)
     );
+router
+    .route('/deletePatient/:patientId')
+    .delete(
+        authenticateToken,
+        asyncRoute(checkRole([role.ADMINISTRATOR, role.REGISTRATOR])),
+        asyncRoute(patientController.deletePatient)
+    );
+router
+    .route('/createPatient')
+    .post(
+        authenticateToken,
+        asyncRoute(checkRole([role.ADMINISTRATOR, role.REGISTRATOR])),
+        asyncRoute(patientController.createPatient)
+    );
 export default router;

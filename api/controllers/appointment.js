@@ -4,6 +4,7 @@ import { AppErrorAlreadyExists, AppErrorMissing } from '../utils/errors.js';
 import AppointmentDto from '../dtos/appointment-dto.js';
 import Patient from '../models/patient.js';
 import User from '../models/user.js';
+import AppointmentPatientDto from '../dtos/appointment-patient-dto.js';
 
 export default {
     async getAll(req, res) {
@@ -71,5 +72,70 @@ export default {
         await appointment.destroy({ force: true });
 
         res.send('Appointment deleted');
+    },
+    async getAllPatientAppointments({ params: { patientId } }, res) {
+        const patient = await Patient.findOne({ where: { id: patientId } });
+        if (!patient) {
+            throw new AppErrorMissing('Patient not found');
+        }
+
+        const appointment = await Appointment.findAll({ where: { patientId: patientId }, include: [Doctor, Patient] });
+
+        if (!appointment) {
+            throw new AppErrorMissing('Appointment not found');
+        }
+
+        const appointmentPatientDto = appointment.map(x => new AppointmentPatientDto(x));
+
+        res.json(appointmentPatientDto);
+    },
+
+    async createAppointmentByRegistrator(req, res) {
+        const data = req.body;
+
+        const userId = req.user.id;
+
+        const { doctorId, date, time, patientId } = data;
+
+        const user = await User.findByPk(userId);
+        if (!user) {
+            throw new AppErrorMissing('User not found');
+        }
+        const patient = await Patient.findOne({ where: { id: patientId } });
+        if (!patient) {
+            throw new AppErrorMissing('Patient not found');
+        }
+        const doctor = await Doctor.findOne({ where: { id: data.doctorId } });
+        if (!doctor) {
+            throw new AppErrorMissing('Doctor not found');
+        }
+        const existingAppointment = await Appointment.findOne({
+            where: {
+                doctorId,
+                date,
+                time,
+                patientId,
+            },
+        });
+        if (existingAppointment) {
+            throw new AppErrorAlreadyExists('Appointment already exists');
+        }
+        try {
+            const appointment = await Appointment.create({
+                doctorId,
+                userId,
+                patientId,
+                date,
+                time,
+            });
+
+            await appointment.reload({ include: [Doctor, Patient] });
+            console.log(appointment);
+            const appointmentPatientDto = new AppointmentPatientDto(appointment);
+
+            res.json(appointmentPatientDto);
+        } catch (error) {
+            console.error(error);
+        }
     },
 };

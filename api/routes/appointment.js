@@ -28,4 +28,19 @@ router
         asyncRoute(checkRole([role.ADMINISTRATOR, role.REGISTRATOR, role.PATIENT])),
         asyncRoute(appointmentController.deleteAppointment)
     );
+
+router
+    .route('/getAllPatientAppointments/:patientId')
+    .get(
+        authenticateToken,
+        asyncRoute(checkRole([role.ADMINISTRATOR, role.REGISTRATOR])),
+        asyncRoute(appointmentController.getAllPatientAppointments)
+    );
+router
+    .route('/createByRegister')
+    .post(
+        authenticateToken,
+        asyncRoute(checkRole([role.ADMINISTRATOR, role.REGISTRATOR])),
+        asyncRoute(appointmentController.createAppointmentByRegistrator)
+    );
 export default router;

@@ -16,6 +16,10 @@ export default class Appointment extends Model {
                     type: DataTypes.UUID,
                     allowNull: false,
                 },
+                patientId: {
+                    type: DataTypes.UUID,
+                    allowNull: true,
+                },
                 doctorId: {
                     type: DataTypes.UUID,
                     allowNull: false,
