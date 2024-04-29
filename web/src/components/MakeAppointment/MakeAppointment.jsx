@@ -29,7 +29,7 @@ function MakeAppointment(props) {
       {doctorId:appointmentData.doctor},
       {date:appointmentData.date},
       {time:appointmentData.time},
-      {patientId:userDataID}
+      {userId:userDataID}
     ]
 
     MakeApointmentApi(accessToken,data).then(response=>{
