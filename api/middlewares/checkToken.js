@@ -17,6 +17,8 @@ export const authenticateToken = async (req, res, next) => {
         // Передаем информацию о пользователе в запрос для последующих обработчиков
         req.user = decoded;
 
+        console.log(req.user);
+
         next();
     } catch (error) {
         next(error); // Передаем ошибку дальше для обработки централизованной обработки ошибок

@@ -39,4 +39,20 @@ export default {
     // decode(token) {
     // 	return jwt.decode(token);
     // },
+
+    decodeAccessTokenAndGetUserId(accessToken) {
+        // Проверяем, передан ли токен доступа
+        if (!accessToken) {
+            throw new Error('Access token is missing');
+        }
+
+        try {
+            // Декодируем токен доступа и извлекаем из него идентификатор пользователя (userId)
+            const decodedToken = jwt.verify(accessToken, 'your_secret_key'); // Замените 'your_secret_key' на ваш секретный ключ
+            const userId = decodedToken.id; // Предполагается, что в токене есть поле с идентификатором пользователя
+            return userId;
+        } catch (error) {
+            throw new Error('Invalid access token');
+        }
+    },
 };

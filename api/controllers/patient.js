@@ -32,6 +32,7 @@ export default {
         if (!patient) {
             throw new AppErrorMissing('Patient not found');
         }
+        console.log(patient);
         await patient.update({
             gender,
             passport,
