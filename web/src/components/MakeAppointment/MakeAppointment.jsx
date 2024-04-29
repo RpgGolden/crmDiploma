@@ -11,7 +11,6 @@ function MakeAppointment(props) {
   const [randomNumber, setRandomNumber] = useState(null);
   const [dateDoctor, setdateDoctor] = useState([]);
   const accessToken = localStorage.getItem('accessToken'); 
-  const userID = localStorage.getItem('userDataID'); 
 
   const [appointmentData, setAppointmentData] = useState({
     date: "",
@@ -72,6 +71,7 @@ function MakeAppointment(props) {
                 type="date"
                 placeholder="Дата"
                 style={appointmentData.date ? { color: "#000" } : null}
+                min={new Date().toISOString().split('T')[0]} 
               />
               <div
                 className={styles.list}

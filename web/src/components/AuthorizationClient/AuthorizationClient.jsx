@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import styles from "./AuthorizationClient.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { Login } from "../../API/API";
+import DataContext from "../../context";
 
 function AuthorizationClient() {
+  const { setUserData} = React.useContext(DataContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     login: "",
@@ -21,8 +23,11 @@ function AuthorizationClient() {
   const handleLogin = () => {
     console.log(formData);
     Login(formData).then(LoginUserData=>{
-      if(LoginUserData){
+      setUserData(LoginUserData)
+      if(LoginUserData.role === "PATIENT" ){
         navigate('/Client');
+      }else{
+        alert("Воспользуйтесь входом для Регистратора!")
       }
     });
   };
@@ -53,7 +58,7 @@ function AuthorizationClient() {
             <button className={styles.buttonRegister}>Создать профиль</button>
           </Link>
           <Link to="/Authorization">
-            <p>Вход для регистратора</p>
+            <p className={styles.ClientAuthLink}>Вход для регистратора</p>
           </Link>
         </div>
       </div>

@@ -11,7 +11,7 @@
       margin: 0 auto;
       @include flexbox-center(17px);
       flex-direction: column;
-
+      position: relative;
       h2 {
         width: 100%;
         @include flexbox-center(0);
@@ -25,6 +25,17 @@
 
       .button {
         @include button(var(--turquoise-color));
+      }
+      .ClientAuthLink{
+        position: absolute;
+        right: -85px;
+        bottom: -45px;
+        color: var(  --turquoise-color);
+        transition: 0.15s linear all;
+      }
+      .ClientAuthLink:hover{
+        cursor: pointer;
+        opacity: 0.6;
       }
     }
   }

@@ -3,6 +3,7 @@ import styles from "./TableRegistrar.module.scss";
 import { tableData, tableHead } from "./Data";
 import Table from "./Table";
 import HeadMenu from "../HeadMenu/HeadMenu";
+import { GetAllUsers } from "../../API/API";
 
 function TableRegistrar(props) {
   const tableDataMemo = useMemo(() => tableData, []);
@@ -14,6 +15,7 @@ function TableRegistrar(props) {
   const [endDate, setEndDate] = useState("");
   const [gender, setGender] = useState({});
   const [search, setSearch] = useState("");
+  const accessToken = localStorage.getItem('accessToken'); 
 
   const handleStartDateChange = (event) => {
     const selectedStartDate = event.target.value;
@@ -102,7 +104,14 @@ function TableRegistrar(props) {
     console.log(id);
     props.setSelectClient(id);
   };
+  useEffect(()=>{
+    console.log("accessToken",accessToken)
+     GetAllUsers(accessToken).then(response=>{
+      console.log(response)
+    })
 
+    
+  },[])
   return (
     <div>
       <HeadMenu state={"home"} selctClient={props.selctClient} />

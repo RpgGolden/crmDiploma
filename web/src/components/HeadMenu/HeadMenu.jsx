@@ -12,13 +12,6 @@ function HeadMenu({ state, selctClient }) {
               Посмотреть
             </button>
           </Link>
-
-          <Link to={selctClient && "./../Registrar/PatientRegistr"}>
-            <button>
-              <img src="./img/Add_ring.png" alt="View" />
-              Добавить
-            </button>
-          </Link>
           <Link to={selctClient && "./EditPatient"}>
             <button>
               <img src="./img/Edit.png" alt="View" />
@@ -29,6 +22,12 @@ function HeadMenu({ state, selctClient }) {
             <button>
               <img src="./img/File_dock.png" alt="View" />
               Записать на прием
+            </button>
+          </Link>
+          <Link to="./../Registrar/PatientRegistr">
+            <button>
+              <img src="./img/Add_ring.png" alt="View" />
+              Добавить пациента
             </button>
           </Link>
         </div>

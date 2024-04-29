@@ -8,8 +8,9 @@ export const Register = async (UserData) => {
     const { accessToken, refreshToken, ...userData } = response.data;
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
-    localStorage.setItem('userDataID', userData.id);
-    return userData;
+    localStorage.setItem('userData', JSON.stringify(userData));
+
+   return userData;
   } catch (error) {
     alert("Регистрация не прошла!")
   }
@@ -21,7 +22,9 @@ export const Login = async (UserData) => {
         const { accessToken, refreshToken, ...userData } = response.data;
          localStorage.setItem('accessToken', accessToken);
          localStorage.setItem('refreshToken', refreshToken);
-         localStorage.setItem('userDataID', userData.id);
+         localStorage.setItem('userData', JSON.stringify(userData));
+
+
          return userData;
     } catch (error) {
         console.error('Login error:', error);
@@ -116,6 +119,20 @@ export const DeleteApointment = async (accessToken, id) => {
         return response;
     } catch (error) {
         console.error('Appointment creation error:', error);
+        throw error;
+    }
+}
+
+export const  GetAllUsers = async (accessToken) => {
+    try {
+        const response = await axios.get(`${server}/patient/getAll`,{
+            headers:{
+                Authorization: `${accessToken}`,
+            },
+        });
+        return response;
+    } catch (error) {
+        console.error('Login error:', error);
         throw error;
     }
 }
