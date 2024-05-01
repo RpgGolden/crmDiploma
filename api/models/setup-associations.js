@@ -6,11 +6,11 @@ export default function () {
     User.hasOne(TokenSchema, { foreignKey: 'userId' });
     TokenSchema.belongsTo(User, { foreignKey: 'userId' });
 
-    User.hasOne(Patient, { foreignKey: 'userId' });
-    Patient.belongsTo(User, { foreignKey: 'userId' });
+    User.hasOne(Patient, { onDelete: 'CASCADE' });
+    Patient.belongsTo(User, { onDelete: 'CASCADE' });
 
-    // Patient.hasMany(Appointment, { foreignKey: 'patientId' });
-    // Appointment.belongsTo(Patient, { foreignKey: 'patientId' });
+    Patient.hasMany(Appointment, { foreignKey: 'patientId' });
+    Appointment.belongsTo(Patient, { foreignKey: 'patientId', onDelete: 'cascade' });
 
     User.hasMany(Appointment, { foreignKey: 'userId' });
     Appointment.belongsTo(User, { foreignKey: 'userId' });

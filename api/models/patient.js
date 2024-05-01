@@ -68,7 +68,11 @@ export default class Patient extends Model {
                 },
                 userId: {
                     type: DataTypes.UUID,
-                    allowNull: false,
+                    allowNull: true,
+                },
+                patientId: {
+                    type: DataTypes.UUID,
+                    allowNull: true,
                 },
             },
             {

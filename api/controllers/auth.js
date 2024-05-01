@@ -8,6 +8,8 @@ import TokenModel from '../models/token-model.js';
 import jwtUtils from '../utils/jwt.js';
 import Patient from '../models/patient.js';
 
+import 'dotenv/config';
+
 export default {
     async register(req, res) {
         try {
@@ -82,6 +84,29 @@ export default {
             await jwtUtils.removeToken(refreshToken);
 
             return res.json({ success: true });
+        } catch (error) {
+            throw new AppErrorMissing('Invalid refresh token');
+        }
+    },
+    async refreshToken(req, res) {
+        const { refreshToken } = req.body;
+
+        if (!refreshToken) {
+            throw new AppErrorMissing('No refresh token');
+        }
+
+        try {
+            const { id } = jwtUtils.verifyRefreshToken(refreshToken);
+
+            const tokenData = await jwtUtils.findToken(refreshToken);
+            if (!tokenData) {
+                throw new AppErrorMissing('Invalid refresh token');
+            }
+
+            const { accessToken, refreshToken: newRefreshToken } = jwtUtils.generate({ id });
+            await jwtUtils.saveToken(id, newRefreshToken);
+
+            return res.json({ accessToken, refreshToken: newRefreshToken });
         } catch (error) {
             throw new AppErrorMissing('Invalid refresh token');
         }
