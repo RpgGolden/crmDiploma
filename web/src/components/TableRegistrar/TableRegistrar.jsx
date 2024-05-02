@@ -4,10 +4,11 @@ import { tableHead } from "./Data";
 import Table from "./Table";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { GetAllUsers } from "../../API/API";
+import { useContext } from "react";
+import DataContext from "../../context";
 
 function TableRegistrar(props) {
   const accessToken = localStorage.getItem('accessToken'); 
-
   const tableHeadMemo = useMemo(() => tableHead, []);
   const [filterShow, setFilterShow] = useState(false);
   const [filtredData, setFiltredData] = useState(props.tableData);
@@ -17,6 +18,8 @@ function TableRegistrar(props) {
   const [gender, setGender] = useState({});
   const [search, setSearch] = useState("");
   const [idClientSelect, setidClientSelect] = useState(null);
+
+  const {contData} = useContext(DataContext)
 
   const handleStartDateChange = (event) => {
     const selectedStartDate = event.target.value;
@@ -109,11 +112,14 @@ function TableRegistrar(props) {
 
   //! выбор пациента
   const selectTd = (id) => {
+    contData.setSelectClient(id)
     setidClientSelect(id);
-    localStorage.setItem("idClientSelect", id);
-
+    sessionStorage.setItem("idClientSelect", id);
   };
 
+  useEffect(()=>{
+    contData.setSelectClient( sessionStorage.getItem("idClientSelect"))
+  },[ contData.selctClient])
   return (
     <div>
       <HeadMenu state={"home"} idClientSelect={idClientSelect} />

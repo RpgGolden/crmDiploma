@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./TableRegistrar.module.scss";
+import DataContext from "../../context";
 
 function Table(props) {
+  const {contData} = useContext(DataContext)
+  console.log(contData)
   return (
     <div className={styles.table}>
       <table>
@@ -18,7 +21,7 @@ function Table(props) {
               {props.tableHead.map((el) => (
                 <td
                   style={
-                    row.id === props.selctClient
+                    row.id === contData?.selctClient
                       ? { backgroundColor: "#C7EBF2" }
                       : null
                   }

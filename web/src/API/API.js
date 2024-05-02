@@ -198,3 +198,34 @@ export const UpdateDataPatientForId = async (accessToken, data, id) => {
     throw error;
   }
 };
+
+//! Получение Id Пациента
+export const GetAllPatientAppoint = async (accessToken, id) => {
+  try {
+    const response = await axios.get(`${server}/appointment/GetAllPatientAppointments/${id}`,{
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error("Login error:", error);
+    throw error;
+  }
+};
+
+
+// //! Получение историй посищений клиента 
+// export const GetAllPatientAppoint = async (accessToken, id) => {
+//   try {
+//     const response = await axios.get(`${server}/appointment/GetAllPatientAppointments/${id}`,{
+//       headers: {
+//         Authorization: `${accessToken}`,
+//       },
+//     });
+//     return response;
+//   } catch (error) {
+//     console.error("Login error:", error);
+//     throw error;
+//   }
+// };

@@ -1,21 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./OutpatientCard.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { tableHead, visitHistory } from "../TableRegistrar/Data";
-import { GetPatientId } from "../../API/API";
+import { GetAllPatientAppoint, GetPatientId } from "../../API/API";
+import DataContext from "../../context";
 function OutpatientCard(props) {
   const accessToken = localStorage.getItem('accessToken'); 
 
   const [cardData, setCardData] = useState([]);
   const [rowName, setRowName] = useState(tableHead);
   const [history, setHistory] = useState(visitHistory);
- 
+  const {contData} = useContext(DataContext)
+
   useEffect(()=>{
-    const idPatientSelect = localStorage.getItem("idClientSelect");
-    GetPatientId(accessToken, idPatientSelect).then((response)=>{
+    const idPat = sessionStorage.getItem("idClientSelect")
+    contData.setSelectClient( idPat)
+    GetPatientId(accessToken, idPat).then((response)=>{
       setCardData(response.data)
     })
-    
+    console.log(idPat)
+    GetAllPatientAppoint(accessToken, idPat ).then((response)=>{
+      // setCardData(response.data)
+      console.log('response', response.data)
+    })
+
   },[])
 
   return (

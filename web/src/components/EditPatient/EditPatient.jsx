@@ -1,11 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./EditPatient.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { GetPatientId, UpdateDataPatientForId } from "../../API/API";
+import DataContext from "../../context";
+import { useNavigate } from 'react-router-dom';
+
 const EditPatient = () => {
   const [cardData, setCardData] = useState([]);
   const accessToken = localStorage.getItem('accessToken'); 
   const [idPatientSelected, setidPatientSelected] = useState(null)
+  const {contData} = useContext(DataContext)
+
+
+  // useEffect(()=>{
+  //   contData.setSelectClient( sessionStorage.getItem("idClientSelect"))
+  //   console.log( sessionStorage.getItem("idClientSelect"))
+  // },[])
+  // const navigate = useNavigate();
+
+  // const handleBeforeUnload = (e) => {
+  //   e.stopProgresion()
+  //   navigate('./..', { replace: false });
+  // };
+
+  // window.addEventListener('beforeunload', handleBeforeUnload);
 
   const handleInput = (el, key) => {
     const query = el.target.value;
@@ -21,20 +39,19 @@ const EditPatient = () => {
   };
 
   useEffect(()=>{
-    const idPatientSelect = localStorage.getItem("idClientSelect");
-    GetPatientId(accessToken, idPatientSelect).then((response)=>{
+    const data = sessionStorage.getItem("idClientSelect")
+    contData.setSelectClient( data)
+    GetPatientId(accessToken, data).then((response)=>{
       console.log(response.data)
       setCardData(response.data)
     })
-    setidPatientSelected(idPatientSelect)
+    setidPatientSelected(contData.selctClient)
   },[])
 
 
   const handleSave = () => {
-    console.log("cardData", cardData)
-    console.log("accessToken", accessToken)
-    console.log("idPatientSelected", idPatientSelected)
-    UpdateDataPatientForId(accessToken, cardData, idPatientSelected).then(response=>{
+    const data = sessionStorage.getItem("idClientSelect")
+    UpdateDataPatientForId(accessToken, cardData, data).then(response=>{
      if(response.status === 200){
       alert("Изменения сохранены!")
      }else{
@@ -42,6 +59,7 @@ const EditPatient = () => {
      }
     });;
   };
+  
   
   return (
     <div>

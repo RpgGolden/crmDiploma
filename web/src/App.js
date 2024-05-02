@@ -14,31 +14,21 @@ import AccounClient from "./components/AccounClient/AccounClient";
 import EditPatient from "./components/EditPatient/EditPatient";
 import { useState } from "react";
 import MakeAppointment from "./components/MakeAppointment/MakeAppointment";
+import DataContext from "./context";
 
 function App() {
-  // const [selctClient, setSelectClient] = useState("");
-
-  // const [tableData, setTableData] = useState([]);
-  // const [clientData, setClientData] = useState({});
-
-  // useEffect(() => {
-  //   GetAllUsers(accessToken).then((response) => {
-  //     console.log(response.data);
-  //     setTableData(response.data);
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   setClientData([...tableData].find((item) => item.id === selctClient));
-  // }, [selctClient]);
-
+  const [selctClient, setSelectClient] = useState("");
+  const contData = {
+    selctClient,
+    setSelectClient
+  }
   return (
-    // <DataContext.Provider
-    //   value={{
-    //     userData,
-    //     setUserData,
-    //   }}
-    // >
+    <DataContext.Provider
+      value={{
+        contData
+      }
+      }
+    >
       <BrowserRouter>
         <main className="App">
           <Routes>
@@ -93,7 +83,7 @@ function App() {
           </Routes>
         </main>
       </BrowserRouter>
-    // </DataContext.Provider>
+     </DataContext.Provider>
   );
 }
 

@@ -1,24 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./HeadMenu.module.scss";
 import { Link } from "react-router-dom";
-function HeadMenu({ state, idClientSelect }) {  
+import DataContext from "../../context";
+function HeadMenu({ state }) {  
+  const {contData} = useContext(DataContext)
+
   return (
+
     <>
       {state === "home" ? (
         <div className={styles.HeadMenu}>
-          <Link to={idClientSelect && "./../Registrar/OutpatientCard"}>
+          <Link to={contData.selctClient && "./../Registrar/OutpatientCard"}>
             <button>
               <img src="./img/View.png" alt="View" />
               Посмотреть
             </button>
           </Link>
-          <Link to={idClientSelect && "./EditPatient"}>
+          <Link to={contData.selctClient && "./EditPatient"}>
             <button>
               <img src="./img/Edit.png" alt="View" />
               Редактировать
             </button>
           </Link>
-          <Link to={idClientSelect && "./MakeAppointment"}>
+          <Link to={contData.selctClient && "./MakeAppointment"}>
             <button>
               <img src="./img/File_dock.png" alt="View" />
               Записать на прием
