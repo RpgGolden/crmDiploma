@@ -157,11 +157,11 @@ const AccounClient = (props) => {
             <h2>Пол</h2>
             <div className={styles.label_box}>
               <label htmlFor="myRadio">
-                <input type="radio" name="myRadio"   checked={formData.gender === "1" || formData.gender === "МУЖ"} onChange={()=>{setFormData({...formData, gender: "1"})}}/>
+                <input type="radio" name="myRadio"   checked={formData.gender === 1 } onChange={()=>{setFormData({...formData, gender: "1"})}}/>
                 Мужской
               </label>
               <label>
-                <input type="radio" name="myRadio"   checked={formData.gender === "2" || formData.gender === "ЖЕН"} onChange={()=>{setFormData({...formData, gender: "2"})}}/>
+                <input type="radio" name="myRadio"   checked={formData.gender === 2 } onChange={()=>{setFormData({...formData, gender: "2"})}}/>
                 Женский
               </label>
             </div>

@@ -183,3 +183,18 @@ export const GetPatientId = async (accessToken, id) => {
     throw error;
   }
 };
+
+//! Обновление данных пациента по Id
+export const UpdateDataPatientForId = async (accessToken, data, id) => {
+  try {
+    const response = await axios.post(`${server}/patient/updatePatient/${id}`, data,{
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error("Login error:", error);
+    throw error;
+  }
+};

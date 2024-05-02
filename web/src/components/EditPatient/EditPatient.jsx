@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EditPatient.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
-import { GetPatientId, PatientUpdate } from "../../API/API";
+import { GetPatientId, UpdateDataPatientForId } from "../../API/API";
 const EditPatient = () => {
   const [cardData, setCardData] = useState([]);
   const accessToken = localStorage.getItem('accessToken'); 
-
+  const [idPatientSelected, setidPatientSelected] = useState(null)
 
   const handleInput = (el, key) => {
     const query = el.target.value;
@@ -23,15 +23,18 @@ const EditPatient = () => {
   useEffect(()=>{
     const idPatientSelect = localStorage.getItem("idClientSelect");
     GetPatientId(accessToken, idPatientSelect).then((response)=>{
+      console.log(response.data)
       setCardData(response.data)
     })
-
+    setidPatientSelected(idPatientSelect)
   },[])
 
 
   const handleSave = () => {
     console.log("cardData", cardData)
-    PatientUpdate(accessToken, cardData).then(response=>{
+    console.log("accessToken", accessToken)
+    console.log("idPatientSelected", idPatientSelected)
+    UpdateDataPatientForId(accessToken, cardData, idPatientSelected).then(response=>{
      if(response.status === 200){
       alert("Изменения сохранены!")
      }else{
@@ -116,7 +119,7 @@ const EditPatient = () => {
                 <input
                   type="checkbox"
                   name="МУЖ"
-                  checked={cardData.gender === 1}
+                  checked={cardData.gender === 1 }
                   onChange={() => setCardData({ ...cardData, gender: 1 })}
                 />
                 Мужской
@@ -125,7 +128,7 @@ const EditPatient = () => {
                 <input
                   type="checkbox"
                   name="ЖЕН"
-                  checked={cardData.gender === 2}
+                  checked={cardData.gender === 2 }
                   onChange={() => setCardData({ ...cardData, gender: 2 })}
                 />
                 Женский

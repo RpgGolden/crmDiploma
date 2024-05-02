@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./HeadMenu.module.scss";
 import { Link } from "react-router-dom";
-function HeadMenu({ state, idClientSelect }) {
-  console.log(idClientSelect)
+function HeadMenu({ state, idClientSelect }) {  
   return (
     <>
       {state === "home" ? (
