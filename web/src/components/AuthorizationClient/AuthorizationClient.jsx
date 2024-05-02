@@ -20,12 +20,13 @@ function AuthorizationClient() {
   };
 
   const handleLogin = () => {
-    console.log(formData);
-    Login(formData).then(LoginUserData=>{
-      if(LoginUserData.role === "PATIENT" ){
-        navigate('/Client');
-      }else{
-        alert("Воспользуйтесь входом для Регистратора!")
+    Login(formData).then((LoginUserData) => {
+      if (LoginUserData) {
+        if (LoginUserData.role === "PATIENT") {
+          navigate("/Client");
+        } else {
+          alert("Воспользуйтесь входом для Регистратора!");
+        }
       }
     });
   };

@@ -21,49 +21,26 @@ function App() {
   const [selctClient, setSelectClient] = useState("");
   const contData = {
     selctClient,
-    setSelectClient
-  }
+    setSelectClient,
+  };
   return (
     <DataContext.Provider
       value={{
-        contData
-      }
-      }
+        contData,
+      }}
     >
       <BrowserRouter>
         <main className="App">
           <Routes>
             <Route path="Authorization" element={<Authorization />}></Route>
             <Route path="Registrar/*" element={<Registrar />}>
-              <Route
-                path="*"
-                element={
-                  <TableRegistrar/>
-                }
-              ></Route>
-              <Route
-                path="PatientRegistr"
-                element={
-                  <PatientRegistr/>
-                }
-              ></Route>
-              <Route
-                path="OutpatientCard"
-                element={
-                  <OutpatientCard/>
-                }
-              ></Route>
-              <Route
-                path="EditPatient"
-                element={
-                  <EditPatient/>
-                }
-              ></Route>
+              <Route path="*" element={<TableRegistrar />}></Route>
+              <Route path="PatientRegistr" element={<PatientRegistr />}></Route>
+              <Route path="OutpatientCard" element={<OutpatientCard />}></Route>
+              <Route path="EditPatient" element={<EditPatient />}></Route>
               <Route
                 path="MakeAppointmentRegistrar"
-                element={
-                  <MakeAppointmentRegistrar/>
-                }
+                element={<MakeAppointmentRegistrar />}
               ></Route>
             </Route>
             <Route path="/" element={<AuthorizationClient />}></Route>
@@ -84,7 +61,7 @@ function App() {
           </Routes>
         </main>
       </BrowserRouter>
-     </DataContext.Provider>
+    </DataContext.Provider>
   );
 }
 

@@ -8,7 +8,7 @@ function RegisterClient() {
   const [formData, setFormData] = useState({
     name: "",
     surname: "",
-    patronymic:"",
+    patronymic: "",
     login: "",
     password: "",
     confirmPassword: "",
@@ -32,12 +32,11 @@ function RegisterClient() {
       formData.password === formData.confirmPassword
     ) {
       const { confirmPassword, ...dataWithoutConfirmPassword } = formData;
-      console.log(dataWithoutConfirmPassword);
-      Register(dataWithoutConfirmPassword).then(registeredUserData=>{
-        if(registeredUserData){
-          navigate('/Client');
-      }
-      })
+      Register(dataWithoutConfirmPassword).then((registeredUserData) => {
+        if (registeredUserData) {
+          navigate("/Client");
+        }
+      });
     } else {
       alert("Пожалуйста, заполните все поля и убедитесь, что пароли совпадают");
     }
@@ -93,7 +92,6 @@ function RegisterClient() {
           <button
             className={styles.buttonRegister}
             onClick={handleRegistration}
-           
           >
             Зарегистрироваться
           </button>

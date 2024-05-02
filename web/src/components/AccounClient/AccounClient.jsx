@@ -3,7 +3,7 @@ import styles from "./AccounClient.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { GetUsersData, PatientUpdate } from "../../API/API";
 const AccounClient = (props) => {
-  const accessToken = localStorage.getItem('accessToken'); 
+  const accessToken = localStorage.getItem("accessToken");
   const [formData, setFormData] = useState({
     surname: "",
     name: "",
@@ -17,11 +17,9 @@ const AccounClient = (props) => {
     gender: "",
   });
 
-   useEffect(() => {
-    console.log(`accessToken`, accessToken)
+  useEffect(() => {
     GetUsersData(accessToken).then((response) => {
       const data = response.data;
-      console.log(response)
       setFormData((prevData) => ({
         surname: data.surname || prevData.surname,
         name: data.name || prevData.name,
@@ -46,14 +44,13 @@ const AccounClient = (props) => {
   };
 
   const handleSave = () => {
-    console.log("formData", formData)
-    PatientUpdate(accessToken, formData).then(response=>{
-     if(response.status === 200){
-      alert("Изменения внесены!")
-     }else{
-      alert("Произошла ошибка при внесении изменений!")
-     }
-    });;
+    PatientUpdate(accessToken, formData).then((response) => {
+      if (response.status === 200) {
+        alert("Изменения внесены!");
+      } else {
+        alert("Произошла ошибка при внесении изменений!");
+      }
+    });
   };
 
   const handleCancel = () => {
@@ -95,7 +92,6 @@ const AccounClient = (props) => {
                 value={formData.name}
                 onChange={handleInputChange}
                 disabled="true"
-
               />
               <input
                 type="text"
@@ -157,11 +153,25 @@ const AccounClient = (props) => {
             <h2>Пол</h2>
             <div className={styles.label_box}>
               <label htmlFor="myRadio">
-                <input type="radio" name="myRadio"   checked={formData.gender === 1 } onChange={()=>{setFormData({...formData, gender: "1"})}}/>
+                <input
+                  type="radio"
+                  name="myRadio"
+                  checked={formData.gender === 1}
+                  onChange={() => {
+                    setFormData({ ...formData, gender: "1" });
+                  }}
+                />
                 Мужской
               </label>
               <label>
-                <input type="radio" name="myRadio"   checked={formData.gender === 2 } onChange={()=>{setFormData({...formData, gender: "2"})}}/>
+                <input
+                  type="radio"
+                  name="myRadio"
+                  checked={formData.gender === 2}
+                  onChange={() => {
+                    setFormData({ ...formData, gender: "2" });
+                  }}
+                />
                 Женский
               </label>
             </div>
@@ -169,7 +179,9 @@ const AccounClient = (props) => {
               <button className={styles.but_left} onClick={handleCancel}>
                 Отмена
               </button>
-              <button className={styles.but_rig} onClick={handleSave}>Сохранить</button>
+              <button className={styles.but_rig} onClick={handleSave}>
+                Сохранить
+              </button>
             </div>
           </div>
         </div>

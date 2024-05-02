@@ -41,8 +41,6 @@ function TableRegistrar(props) {
   };
   const genderFilterFun = (fd) => {
     if (startDate && endDate) {
-      console.log(startDate, endDate);
-      console.log("fd", fd);
       const startDateObj = new Date(startDate);
       const endDateObj = new Date(endDate);
       const filtered = fd.filter((item) => {

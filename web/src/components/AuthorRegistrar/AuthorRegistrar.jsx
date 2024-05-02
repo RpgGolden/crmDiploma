@@ -16,11 +16,13 @@ function AuthorRegistrar() {
     setFormData({ ...formData, [name]: value });
   };
   const handleLogin = () => {
-    Login(formData).then(LoginUserData=>{
-      if(LoginUserData.role != "PATIENT" ){
-        navigate('/Registrar');
-      }else{
-        alert("Воспользуйтесь Клиентским входом!")
+    Login(formData).then((LoginUserData) => {
+      if (LoginUserData) {
+        if (LoginUserData.role != "PATIENT") {
+          navigate("/Registrar");
+        } else {
+          alert("Воспользуйтесь Клиентским входом!");
+        }
       }
     });
   };
@@ -44,8 +46,10 @@ function AuthorRegistrar() {
             value={formData.password}
             onChange={handleInputChange}
           />
-          
-          <button className={styles.button} onClick={handleLogin}>Войти</button>
+
+          <button className={styles.button} onClick={handleLogin}>
+            Войти
+          </button>
           <Link to="/">
             <p className={styles.ClientAuthLink}>Вход для клиентов</p>
           </Link>

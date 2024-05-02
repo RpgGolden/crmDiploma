@@ -3,64 +3,45 @@ import styles from "./EditPatient.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { GetPatientId, UpdateDataPatientForId } from "../../API/API";
 import DataContext from "../../context";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const EditPatient = () => {
   const [cardData, setCardData] = useState([]);
-  const accessToken = localStorage.getItem('accessToken'); 
-  const [idPatientSelected, setidPatientSelected] = useState(null)
-  const {contData} = useContext(DataContext)
-
-
-  // useEffect(()=>{
-  //   contData.setSelectClient( sessionStorage.getItem("idClientSelect"))
-  //   console.log( sessionStorage.getItem("idClientSelect"))
-  // },[])
-  // const navigate = useNavigate();
-
-  // const handleBeforeUnload = (e) => {
-  //   e.stopProgresion()
-  //   navigate('./..', { replace: false });
-  // };
-
-  // window.addEventListener('beforeunload', handleBeforeUnload);
+  const accessToken = localStorage.getItem("accessToken");
+  const [idPatientSelected, setidPatientSelected] = useState(null);
+  const { contData } = useContext(DataContext);
 
   const handleInput = (el, key) => {
     const query = el.target.value;
     let date = cardData;
     date[key] = query;
     setCardData({ ...date });
-    console.log(date);
   };
 
   const cancellation = () => {
-    console.log(cardData);
     setCardData(cardData);
   };
 
-  useEffect(()=>{
-    const data = sessionStorage.getItem("idClientSelect")
-    contData.setSelectClient( data)
-    GetPatientId(accessToken, data).then((response)=>{
-      console.log(response.data)
-      setCardData(response.data)
-    })
-    setidPatientSelected(contData.selctClient)
-  },[])
-
+  useEffect(() => {
+    const data = sessionStorage.getItem("idClientSelect");
+    contData.setSelectClient(data);
+    GetPatientId(accessToken, data).then((response) => {
+      setCardData(response.data);
+    });
+    setidPatientSelected(contData.selctClient);
+  }, []);
 
   const handleSave = () => {
-    const data = sessionStorage.getItem("idClientSelect")
-    UpdateDataPatientForId(accessToken, cardData, data).then(response=>{
-     if(response.status === 200){
-      alert("Изменения сохранены!")
-     }else{
-      alert("Произошла ошибка при внесении изменений!")
-     }
-    });;
+    const data = sessionStorage.getItem("idClientSelect");
+    UpdateDataPatientForId(accessToken, cardData, data).then((response) => {
+      if (response.status === 200) {
+        alert("Изменения сохранены!");
+      } else {
+        alert("Произошла ошибка при внесении изменений!");
+      }
+    });
   };
-  
-  
+
   return (
     <div>
       <HeadMenu state={"register"} />
@@ -137,7 +118,7 @@ const EditPatient = () => {
                 <input
                   type="checkbox"
                   name="МУЖ"
-                  checked={cardData.gender === 1 }
+                  checked={cardData.gender === 1}
                   onChange={() => setCardData({ ...cardData, gender: 1 })}
                 />
                 Мужской
@@ -146,7 +127,7 @@ const EditPatient = () => {
                 <input
                   type="checkbox"
                   name="ЖЕН"
-                  checked={cardData.gender === 2 }
+                  checked={cardData.gender === 2}
                   onChange={() => setCardData({ ...cardData, gender: 2 })}
                 />
                 Женский
@@ -156,7 +137,9 @@ const EditPatient = () => {
               <button className={styles.but_left} onClick={cancellation}>
                 Отмена
               </button>
-              <button className={styles.but_rig} onClick={handleSave}>Сохранить</button>
+              <button className={styles.but_rig} onClick={handleSave}>
+                Сохранить
+              </button>
             </div>
           </div>
         </div>

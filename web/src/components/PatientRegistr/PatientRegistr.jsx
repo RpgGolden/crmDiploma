@@ -4,7 +4,7 @@ import HeadMenu from "../HeadMenu/HeadMenu";
 import { CreatePatient } from "../../API/API";
 
 const PatientRegistr = () => {
-  const accessToken = localStorage.getItem('accessToken'); 
+  const accessToken = localStorage.getItem("accessToken");
   const [formData, setFormData] = useState({
     surname: "",
     name: "",
@@ -42,17 +42,11 @@ const PatientRegistr = () => {
   };
   //! регистрация пациента
   const clientReg = () => {
-    console.log("clientReg", accessToken);
-    console.log('formData', formData)
-
     CreatePatient(accessToken, formData).then((responce) => {
-    if(responce.status === 200){
-      alert("Пользователь зарегистрирован!")
-      handleCancel()
-    }else(
-      alert("Произошла ошибка!")
-    )
-
+      if (responce.status === 200) {
+        alert("Пользователь зарегистрирован!");
+        handleCancel();
+      } else alert("Произошла ошибка!");
     });
   };
   return (
@@ -64,18 +58,72 @@ const PatientRegistr = () => {
           <div className={styles.data_container}>
             <div className={styles.leftbox}>
               <p>Паспортные данные</p>
-              <input type="text" placeholder="Фамилия" name="surname" onChange={handleInputChange} value={formData.surname}/>
-              <input type="text" placeholder="Имя"  name="name" onChange={handleInputChange} value={formData.name}/>
-              <input type="text" placeholder="Отчество"  name="patronymic" onChange={handleInputChange} value={formData.patronymic}/>
-              <input type="text" placeholder="Паспорт"  name="passport" onChange={handleInputChange} value={formData.passport}/>
-              <input type="text" placeholder="Прописка"  name="registration" onChange={handleInputChange} value={formData.registration}/>
+              <input
+                type="text"
+                placeholder="Фамилия"
+                name="surname"
+                onChange={handleInputChange}
+                value={formData.surname}
+              />
+              <input
+                type="text"
+                placeholder="Имя"
+                name="name"
+                onChange={handleInputChange}
+                value={formData.name}
+              />
+              <input
+                type="text"
+                placeholder="Отчество"
+                name="patronymic"
+                onChange={handleInputChange}
+                value={formData.patronymic}
+              />
+              <input
+                type="text"
+                placeholder="Паспорт"
+                name="passport"
+                onChange={handleInputChange}
+                value={formData.passport}
+              />
+              <input
+                type="text"
+                placeholder="Прописка"
+                name="registration"
+                onChange={handleInputChange}
+                value={formData.registration}
+              />
             </div>
             <div className={styles.rightbox}>
               <p>Прочие данные</p>
-              <input type="text" placeholder="СНИЛС"  name="snils" onChange={handleInputChange} value={formData.snils}/>
-              <input type="text" placeholder="ОМС"  name="oms" onChange={handleInputChange} value={formData.oms}/>
-              <input type="text" placeholder="Телефон"  name="phoneNumber" onChange={handleInputChange} value={formData.phoneNumber}/>
-              <input type="text" placeholder="Дата рождения"  name="birthDate" onChange={handleInputChange} value={formData.birthDate}/>
+              <input
+                type="text"
+                placeholder="СНИЛС"
+                name="snils"
+                onChange={handleInputChange}
+                value={formData.snils}
+              />
+              <input
+                type="text"
+                placeholder="ОМС"
+                name="oms"
+                onChange={handleInputChange}
+                value={formData.oms}
+              />
+              <input
+                type="text"
+                placeholder="Телефон"
+                name="phoneNumber"
+                onChange={handleInputChange}
+                value={formData.phoneNumber}
+              />
+              <input
+                type="text"
+                placeholder="Дата рождения"
+                name="birthDate"
+                onChange={handleInputChange}
+                value={formData.birthDate}
+              />
             </div>
           </div>
 
@@ -83,17 +131,33 @@ const PatientRegistr = () => {
             <h2>Пол</h2>
             <div className={styles.label_box}>
               <label htmlFor="myRadio">
-                <input type="radio" name="myRadio"   checked={formData.gender === "1" } onChange={()=>{setFormData({...formData, gender: "1"})}}/>
+                <input
+                  type="radio"
+                  name="myRadio"
+                  checked={formData.gender === "1"}
+                  onChange={() => {
+                    setFormData({ ...formData, gender: "1" });
+                  }}
+                />
                 Мужской
               </label>
               <label>
-                <input type="radio" name="myRadio"   checked={formData.gender === "2" } onChange={()=>{setFormData({...formData, gender: "2"})}}/>
+                <input
+                  type="radio"
+                  name="myRadio"
+                  checked={formData.gender === "2"}
+                  onChange={() => {
+                    setFormData({ ...formData, gender: "2" });
+                  }}
+                />
                 Женский
               </label>
             </div>
             <div className={styles.button_box}>
-              
-                <button className={styles.but_left} onClick={handleCancel}> Очистить</button>
+              <button className={styles.but_left} onClick={handleCancel}>
+                {" "}
+                Очистить
+              </button>
               <button className={styles.but_rig} onClick={clientReg}>
                 Зарегистрировать
               </button>

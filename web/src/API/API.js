@@ -9,7 +9,6 @@ export const Register = async (UserData) => {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
     localStorage.setItem("userData", JSON.stringify(userData));
-
     return userData;
   } catch (error) {
     alert("Регистрация не прошла!");
@@ -26,7 +25,6 @@ export const Login = async (UserData) => {
 
     return userData;
   } catch (error) {
-    console.error("Login error:", error);
     alert("Пользователь не найден!");
   }
 };
@@ -98,7 +96,7 @@ export const GetAllApointment = async (accessToken) => {
         Authorization: `${accessToken}`,
       },
     });
-    console.log(response)
+    console.log(response);
     return response;
   } catch (error) {
     console.error("Login error:", error);
@@ -169,7 +167,6 @@ export const CreatePatient = async (accessToken, data) => {
   }
 };
 
-
 //! получение данных 1 пациента по Id
 export const GetPatientId = async (accessToken, id) => {
   try {
@@ -188,11 +185,15 @@ export const GetPatientId = async (accessToken, id) => {
 //! Обновление данных пациента по Id
 export const UpdateDataPatientForId = async (accessToken, data, id) => {
   try {
-    const response = await axios.post(`${server}/patient/updatePatient/${id}`, data,{
-      headers: {
-        Authorization: `${accessToken}`,
-      },
-    });
+    const response = await axios.post(
+      `${server}/patient/updatePatient/${id}`,
+      data,
+      {
+        headers: {
+          Authorization: `${accessToken}`,
+        },
+      }
+    );
     return response;
   } catch (error) {
     console.error("Login error:", error);
@@ -203,11 +204,14 @@ export const UpdateDataPatientForId = async (accessToken, data, id) => {
 //! Получение Id Пациента
 export const GetAllPatientAppoint = async (accessToken, id) => {
   try {
-    const response = await axios.get(`${server}/appointment/GetAllPatientAppointments/${id}`,{
-      headers: {
-        Authorization: `${accessToken}`,
-      },
-    });
+    const response = await axios.get(
+      `${server}/appointment/GetAllPatientAppointments/${id}`,
+      {
+        headers: {
+          Authorization: `${accessToken}`,
+        },
+      }
+    );
     return response;
   } catch (error) {
     console.error("Login error:", error);
@@ -215,15 +219,18 @@ export const GetAllPatientAppoint = async (accessToken, id) => {
   }
 };
 
-
-// //! Получение историй посищений клиента 
+// //! Получение историй посищений клиента
 export const CreateAppointReg = async (accessToken, data) => {
   try {
-    const response = await axios.post(`${server}/appointment/createByRegister`, data,{
-      headers: {
-        Authorization: `${accessToken}`,
-      },
-    });
+    const response = await axios.post(
+      `${server}/appointment/createByRegister`,
+      data,
+      {
+        headers: {
+          Authorization: `${accessToken}`,
+        },
+      }
+    );
     return response;
   } catch (error) {
     console.error("Login error:", error);
@@ -233,17 +240,19 @@ export const CreateAppointReg = async (accessToken, data) => {
 
 // //! удаление пациента
 export const deleteAppointment = async (accessToken, id) => {
-  console.log('id', id)
+  console.log("id", id);
   try {
-    const response = await axios.delete(`${server}/patient/deletePatient/${id}`,{
-      headers: {
-        Authorization: `${accessToken}`,
-      },
-    });
+    const response = await axios.delete(
+      `${server}/patient/deletePatient/${id}`,
+      {
+        headers: {
+          Authorization: `${accessToken}`,
+        },
+      }
+    );
     return response;
   } catch (error) {
     console.error("Login error:", error);
     throw error;
   }
 };
-

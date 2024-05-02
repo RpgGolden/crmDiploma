@@ -3,25 +3,20 @@ import styles from "./HeadMenu.module.scss";
 import { Link } from "react-router-dom";
 import DataContext from "../../context";
 import { deleteAppointment } from "../../API/API";
-function HeadMenu({ state, setFiltredData}) {  
-  const {contData} = useContext(DataContext)
-  const accessToken = localStorage.getItem('accessToken'); 
+function HeadMenu({ state, setFiltredData }) {
+  const { contData } = useContext(DataContext);
+  const accessToken = localStorage.getItem("accessToken");
 
-  const deletePatien= () =>{
-    console.log(contData.selctClient)
-    deleteAppointment(accessToken, contData.selctClient).then((res)=>{
-      if(res.status===200){
-        alert("Пользователь удален")
-        setFiltredData((prev)=> prev.id !== contData.selctClient)
-      }else(
-        alert("Произошла ошибка")
-      )
-    })
-  }
-
+  const deletePatien = () => {
+    deleteAppointment(accessToken, contData.selctClient).then((res) => {
+      if (res.status === 200) {
+        alert("Пользователь удален");
+        setFiltredData((prev) => prev.id !== contData.selctClient);
+      } else alert("Произошла ошибка");
+    });
+  };
 
   return (
-
     <>
       {state === "home" ? (
         <div className={styles.HeadMenu}>
@@ -49,10 +44,10 @@ function HeadMenu({ state, setFiltredData}) {
               Добавить пациента
             </button>
           </Link>
-            <button onClick={deletePatien}>
-              <img src="./img/Add_ring.png" alt="View" />
-             Удалить
-            </button>
+          <button onClick={deletePatien}>
+            <img src="./img/Add_ring.png" alt="View" />
+            Удалить
+          </button>
         </div>
       ) : state === "register" ? (
         <div className={styles.HeadMenu}>
@@ -84,12 +79,12 @@ function HeadMenu({ state, setFiltredData}) {
             </button>
           </Link>
         </div>
-      ): state === "ViewMyAppointment" ? (
+      ) : state === "ViewMyAppointment" ? (
         <div className={styles.HeadMenu}>
           <Link to="/Client">
             <button>
               <img src="./../img/Home.png" alt="View" />
-             На Главную
+              На Главную
             </button>
           </Link>
         </div>
@@ -120,8 +115,7 @@ function HeadMenu({ state, setFiltredData}) {
             </button>
           </div>
         )
-      )
-      }
+      )}
     </>
   );
 }
