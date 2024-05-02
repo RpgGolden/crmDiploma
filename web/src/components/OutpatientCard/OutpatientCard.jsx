@@ -18,9 +18,15 @@ function OutpatientCard() {
     GetPatientId(accessToken, idPat).then((response) => {
       setCardData(response.data);
     });
+    
     GetAllPatientAppoint(accessToken, idPat).then((response) => {
       setHistory(response.data);
     });
+    GetAllPatientAppoint(accessToken, idPat).then((response) => {
+      setHistory(response.data);
+    });
+
+    GetOneAppointPacient
   }, []);
 
   return (
