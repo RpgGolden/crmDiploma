@@ -17,7 +17,7 @@ export default class PatientDto {
         this.name = model.name;
         this.surname = model.surname;
         this.patronymic = model.patronymic;
-        this.gender = genderMap[model.gender];
+        this.gender = model.gender;
         this.passport = model.passport;
         this.snils = model.snils;
         this.birthDate = model.birthDate;
