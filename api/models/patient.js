@@ -33,16 +33,16 @@ export default class Patient extends Model {
                 passport: {
                     type: DataTypes.STRING,
                     allowNull: true,
-                    validate: {
-                        is: /^\d{10}$/,
-                    },
+                    // validate: {
+                    //     is: /^\d{10}$/,
+                    // },
                 },
                 snils: {
                     type: DataTypes.STRING,
                     allowNull: true,
-                    validate: {
-                        is: /^\d{3}-\d{3}-\d{3}\s\d{2}$/,
-                    },
+                    // validate: {
+                    //     is: /^\d{3}-\d{3}-\d{3}\s\d{2}$/,
+                    // },
                 },
                 birthDate: {
                     type: DataTypes.DATEONLY,
@@ -51,16 +51,16 @@ export default class Patient extends Model {
                 phoneNumber: {
                     type: DataTypes.STRING,
                     allowNull: true,
-                    validate: {
-                        is: /^(\+7|7|8)?[\s-]?\(?[489][0-9]{2}\)?[\s-]?[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/,
-                    },
+                    // validate: {
+                    //     is: /^(\+7|7|8)?[\s-]?\(?[489][0-9]{2}\)?[\s-]?[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/,
+                    // },
                 },
                 oms: {
                     type: DataTypes.STRING,
                     allowNull: true,
-                    validate: {
-                        is: /^\d{16}$/,
-                    },
+                    // validate: {
+                    //     is: /^\d{16}$/,
+                    // },
                 },
                 registration: {
                     type: DataTypes.STRING,
