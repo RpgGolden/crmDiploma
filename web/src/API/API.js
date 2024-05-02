@@ -14,6 +14,7 @@ export const Register = async (UserData) => {
     alert("Регистрация не прошла!");
   }
 };
+
 //! Запрос на авторизацию
 export const Login = async (UserData) => {
   try {
@@ -22,7 +23,6 @@ export const Login = async (UserData) => {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
     localStorage.setItem("userData", JSON.stringify(userData));
-
     return userData;
   } catch (error) {
     alert("Пользователь не найден!");
@@ -201,7 +201,8 @@ export const UpdateDataPatientForId = async (accessToken, data, id) => {
   }
 };
 
-//! Получение Id Пациента
+//! получение истории записей регестратором о пациенте
+
 export const GetAllPatientAppoint = async (accessToken, id) => {
   try {
     const response = await axios.get(
@@ -219,7 +220,7 @@ export const GetAllPatientAppoint = async (accessToken, id) => {
   }
 };
 
-// //! Получение историй посищений клиента
+//! Получение историй посищений клиента
 export const CreateAppointReg = async (accessToken, data) => {
   try {
     const response = await axios.post(
@@ -238,7 +239,7 @@ export const CreateAppointReg = async (accessToken, data) => {
   }
 };
 
-// //! удаление пациента
+//! удаление пациента
 export const deleteAppointment = async (accessToken, id) => {
   console.log("id", id);
   try {
@@ -256,3 +257,4 @@ export const deleteAppointment = async (accessToken, id) => {
     throw error;
   }
 };
+
