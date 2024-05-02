@@ -195,6 +195,7 @@ function TableRegistrar(props) {
                 onChange={sherchData}
                 placeholder="Поиск по ФИО, СНИЛС или паспорту"
                 type="text"
+                value={search}
               />
             </div>
             {/* <button>Найти пациента</button> */}
