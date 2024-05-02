@@ -65,7 +65,7 @@ const AccounClient = (props) => {
       registration: "",
       snils: "",
       oms: "",
-      phone: "",
+      phoneNumber: "",
       birthDate: "",
       gender: "",
     });
