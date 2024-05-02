@@ -26,7 +26,6 @@ export default {
         const userId = req.user.id;
 
         const data = req.body;
-
         const { doctorId, date, time } = data;
 
         const doctor = await Doctor.findOne({ where: { id: data.doctorId } });
@@ -79,7 +78,7 @@ export default {
             throw new AppErrorMissing('Patient not found');
         }
 
-        const appointment = await Appointment.findAll({ where: { patientId: patientId }, include: [Doctor, Patient] });
+        const appointment = await Appointment.findAll({ where: { patientId: patientId }, include: [Doctor, User] });
 
         if (!appointment) {
             throw new AppErrorMissing('Appointment not found');
@@ -124,7 +123,7 @@ export default {
             const appointment = await Appointment.create({
                 doctorId,
                 userId,
-                patientId,
+                patientId: patientId,
                 date,
                 time,
             });

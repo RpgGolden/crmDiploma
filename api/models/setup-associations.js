@@ -9,8 +9,8 @@ export default function () {
     User.hasOne(Patient, { onDelete: 'CASCADE' });
     Patient.belongsTo(User, { onDelete: 'CASCADE' });
 
-    Patient.hasMany(Appointment, { foreignKey: 'patientId' });
-    Appointment.belongsTo(Patient, { foreignKey: 'patientId', onDelete: 'cascade' });
+    Patient.hasMany(Appointment);
+    Appointment.belongsTo(Patient, { onDelete: 'cascade' });
 
     User.hasMany(Appointment, { foreignKey: 'userId' });
     Appointment.belongsTo(User, { foreignKey: 'userId' });
