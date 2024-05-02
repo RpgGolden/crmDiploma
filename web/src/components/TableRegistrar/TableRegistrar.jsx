@@ -8,11 +8,11 @@ import { useContext } from "react";
 import DataContext from "../../context";
 
 function TableRegistrar(props) {
-  const accessToken = localStorage.getItem('accessToken'); 
+  const accessToken = localStorage.getItem("accessToken");
   const tableHeadMemo = useMemo(() => tableHead, []);
   const [filterShow, setFilterShow] = useState(false);
   const [filtredData, setFiltredData] = useState([]);
-  const [tableData, setTableData] = useState([])
+  const [tableData, setTableData] = useState([]);
   const [isChecked, setIsChecked] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -20,21 +20,20 @@ function TableRegistrar(props) {
   const [search, setSearch] = useState("");
   const [idClientSelect, setidClientSelect] = useState(null);
 
-  const {contData} = useContext(DataContext)
+  const { contData } = useContext(DataContext);
 
   const handleStartDateChange = (event) => {
     const selectedStartDate = event.target.value;
     setStartDate(selectedStartDate);
   };
 
-  useEffect(()=>{
-    console.log("accessToken",accessToken)
-     GetAllUsers(accessToken).then(response=>{
+  useEffect(() => {
+    GetAllUsers(accessToken).then((response) => {
       setFiltredData(response.data);
       setTableData(response.data);
-    })
-  },[])
- 
+    });
+  }, []);
+
   //! филтрация по дате рождения
   const handleEndDateChange = (event) => {
     const selectedEndDate = event.target.value;
@@ -42,10 +41,12 @@ function TableRegistrar(props) {
   };
   const genderFilterFun = (fd) => {
     if (startDate && endDate) {
+      console.log(startDate, endDate);
+      console.log("fd", fd);
       const startDateObj = new Date(startDate);
       const endDateObj = new Date(endDate);
       const filtered = fd.filter((item) => {
-        const itemDate = new Date(item.birthdate);
+        const itemDate = new Date(item.birthDate);
         return (
           itemDate.getTime() >= startDateObj.getTime() &&
           itemDate.getTime() <= endDateObj.getTime()
@@ -89,7 +90,6 @@ function TableRegistrar(props) {
 
   //! функция фильтрации
   useEffect(() => {
-    console.log(tableData)
     let fd = tableData;
     setFiltredData(fd);
 
@@ -115,24 +115,51 @@ function TableRegistrar(props) {
 
   //! выбор пациента
   const selectTd = (id) => {
-    contData.setSelectClient(id)
+    contData.setSelectClient(id);
     setidClientSelect(id);
     sessionStorage.setItem("idClientSelect", id);
   };
 
-  useEffect(()=>{
-    contData.setSelectClient( sessionStorage.getItem("idClientSelect"))
-  },[ contData.selctClient])
+  const filterClick = (fl) => {
+    setFilterShow(fl);
+    if (fl === false) {
+      setFiltredData(tableData);
+      setIsChecked("");
+      setStartDate("");
+      setEndDate("");
+      setGender({});
+      setSearch("");
+    }
+  };
+
+  useEffect(() => {
+    contData.setSelectClient(sessionStorage.getItem("idClientSelect"));
+  }, [contData.selctClient]);
   return (
     <div>
-      <HeadMenu setFiltredData={setFiltredData}  state={"home"} idClientSelect={idClientSelect} />
+      <HeadMenu
+        setFiltredData={setFiltredData}
+        state={"home"}
+        idClientSelect={idClientSelect}
+      />
       <div className={styles.TableRegistrar}>
         <div className={styles.head}>
           <div className={styles.filters}>
-            <button onClick={() => setFilterShow(!filterShow)}>
-              <img src="./img/filter.png" alt="filter" />
-              Фильтр
-            </button>
+            {filterShow ? (
+              <button onClick={() => filterClick(false)}>
+                <img src="./img/filter.png" alt="filter" />
+                Фильтр
+              </button>
+            ) : (
+              <button
+                className={styles.filterF}
+                onClick={() => filterClick(true)}
+              >
+                <img src="./img/filterF.png" alt="filter" />
+                Фильтр
+              </button>
+            )}
+
             {filterShow && (
               <>
                 <label className={styles.labelradio} htmlFor="myRadio">
@@ -148,7 +175,7 @@ function TableRegistrar(props) {
                     type="checkbox"
                     id="women"
                     name="gender"
-                    checked={isChecked === 'women' ? true : false}
+                    checked={isChecked === "women" ? true : false}
                     onChange={genderSelect}
                   />
                   Женский

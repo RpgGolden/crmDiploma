@@ -6,7 +6,12 @@
   background-color: var(--white-color);
   border-radius: 17px;
   margin-top: 15px;
-
+  .filterF {
+    background-color: #fff !important;
+    border: 1px solid #434343;
+    color: #000 !important;
+    font-weight: 400 !important;
+  }
   .head {
     display: flex;
     flex-direction: row;

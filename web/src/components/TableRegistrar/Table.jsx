@@ -3,8 +3,7 @@ import styles from "./TableRegistrar.module.scss";
 import DataContext from "../../context";
 
 function Table(props) {
-  const {contData} = useContext(DataContext)
-  console.log(contData)
+  const { contData } = useContext(DataContext);
   return (
     <div className={styles.table}>
       <table>
@@ -28,7 +27,11 @@ function Table(props) {
                   key={el.key}
                   onClick={() => props.selectTd(row.id)}
                 >
-                  {row[`${el.key}`]}
+                  {el.key === "gender"
+                    ? row.gender === 1
+                      ? "М"
+                      : "Ж"
+                    : row[`${el.key}`]}
                 </td>
               ))}
             </tr>
