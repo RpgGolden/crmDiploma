@@ -97,7 +97,7 @@ function HeadMenu({ state, setFiltredData }) {
                 На главную
               </button>
             </Link>
-            <Link to="./../MakeAppointment">
+            <Link to="./../MakeAppointmentRegistrar">
               <button>
                 <img src="./../img/File_dock.png" alt="View" />
                 Записать на прием
