@@ -13,7 +13,7 @@ function Table(props) {
           </tr>
         </thead>
         <tbody>
-          {props.filtredData.map((row) => (
+          {props.filtredData?.map((row) => (
             <tr key={row.id}>
               {props.tableHead.map((el) => (
                 <td

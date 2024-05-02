@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AccounClient.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
-import { PatientGetData, PatientUpdate } from "../../API/API";
+import { GetUsersData, PatientUpdate } from "../../API/API";
 const AccounClient = (props) => {
   const accessToken = localStorage.getItem('accessToken'); 
   const [formData, setFormData] = useState({
@@ -18,8 +18,10 @@ const AccounClient = (props) => {
   });
 
    useEffect(() => {
-    PatientGetData(accessToken).then((response) => {
-      const data = response.data[0];
+    console.log(`accessToken`, accessToken)
+    GetUsersData(accessToken).then((response) => {
+      const data = response.data;
+      console.log(response)
       setFormData((prevData) => ({
         surname: data.surname || prevData.surname,
         name: data.name || prevData.name,
@@ -44,6 +46,7 @@ const AccounClient = (props) => {
   };
 
   const handleSave = () => {
+    console.log("formData", formData)
     PatientUpdate(accessToken, formData).then(response=>{
      if(response.status === 200){
       alert("Изменения внесены!")
@@ -83,6 +86,7 @@ const AccounClient = (props) => {
                 name="surname"
                 value={formData.surname}
                 onChange={handleInputChange}
+                disabled="true"
               />
               <input
                 type="text"
@@ -90,6 +94,8 @@ const AccounClient = (props) => {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
+                disabled="true"
+
               />
               <input
                 type="text"
@@ -97,6 +103,7 @@ const AccounClient = (props) => {
                 name="patronymic"
                 value={formData.patronymic}
                 onChange={handleInputChange}
+                disabled="true"
               />
               <input
                 type="text"

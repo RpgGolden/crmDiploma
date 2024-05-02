@@ -12,37 +12,33 @@ import HomeClientPage from "./components/HomeClientPage/HomeClientPage";
 import ViewMyAppointment from "./components/ViewMyAppointment/ViewMyAppointment";
 import AccounClient from "./components/AccounClient/AccounClient";
 import EditPatient from "./components/EditPatient/EditPatient";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MakeAppointment from "./components/MakeAppointment/MakeAppointment";
-import DataContext from "./context";
-import { GetAllUsers } from "./API/API";
-const accessToken = localStorage.getItem("accessToken");
 
 function App() {
-  const [selctClient, setSelectClient] = useState("");
-  const [userData, setUserData] = useState(null);
+  // const [selctClient, setSelectClient] = useState("");
 
-  const [tableData, setTableData] = useState([]);
-  const [clientData, setClientData] = useState({});
+  // const [tableData, setTableData] = useState([]);
+  // const [clientData, setClientData] = useState({});
 
-  useEffect(() => {
-    GetAllUsers(accessToken).then((response) => {
-      console.log(response.data);
-      setTableData(response.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   GetAllUsers(accessToken).then((response) => {
+  //     console.log(response.data);
+  //     setTableData(response.data);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    setClientData([...tableData].find((item) => item.id === selctClient));
-  }, [selctClient]);
+  // useEffect(() => {
+  //   setClientData([...tableData].find((item) => item.id === selctClient));
+  // }, [selctClient]);
 
   return (
-    <DataContext.Provider
-      value={{
-        userData,
-        setUserData,
-      }}
-    >
+    // <DataContext.Provider
+    //   value={{
+    //     userData,
+    //     setUserData,
+    //   }}
+    // >
       <BrowserRouter>
         <main className="App">
           <Routes>
@@ -51,49 +47,31 @@ function App() {
               <Route
                 path="*"
                 element={
-                  <TableRegistrar
-                    tableData={tableData}
-                    selctClient={selctClient}
-                    setSelectClient={setSelectClient}
-                  />
+                  <TableRegistrar/>
                 }
               ></Route>
               <Route
                 path="PatientRegistr"
                 element={
-                  <PatientRegistr
-                    selctClient={selctClient}
-                    setSelectClient={setSelectClient}
-                  />
+                  <PatientRegistr/>
                 }
               ></Route>
               <Route
                 path="OutpatientCard"
                 element={
-                  <OutpatientCard
-                    clientData={clientData}
-                    selctClient={selctClient}
-                    setSelectClient={setSelectClient}
-                  />
+                  <OutpatientCard/>
                 }
               ></Route>
               <Route
                 path="EditPatient"
                 element={
-                  <EditPatient
-                    clientData={clientData}
-                    selctClient={selctClient}
-                    setSelectClient={setSelectClient}
-                  />
+                  <EditPatient/>
                 }
               ></Route>
               <Route
                 path="MakeAppointment"
                 element={
-                  <MakeAppointment
-                    selctClient={selctClient}
-                    setSelectClient={setSelectClient}
-                  />
+                  <MakeAppointment/>
                 }
               ></Route>
             </Route>
@@ -115,7 +93,7 @@ function App() {
           </Routes>
         </main>
       </BrowserRouter>
-    </DataContext.Provider>
+    // </DataContext.Provider>
   );
 }
 

@@ -5,7 +5,6 @@ import { Login } from "../../API/API";
 import DataContext from "../../context";
 
 function AuthorizationClient() {
-  const { setUserData} = React.useContext(DataContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     login: "",
@@ -23,7 +22,6 @@ function AuthorizationClient() {
   const handleLogin = () => {
     console.log(formData);
     Login(formData).then(LoginUserData=>{
-      setUserData(LoginUserData)
       if(LoginUserData.role === "PATIENT" ){
         navigate('/Client');
       }else{

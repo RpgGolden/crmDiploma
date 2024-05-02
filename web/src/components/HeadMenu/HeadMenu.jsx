@@ -1,24 +1,25 @@
 import React from "react";
 import styles from "./HeadMenu.module.scss";
 import { Link } from "react-router-dom";
-function HeadMenu({ state, selctClient }) {
+function HeadMenu({ state, idClientSelect }) {
+  console.log(idClientSelect)
   return (
     <>
       {state === "home" ? (
         <div className={styles.HeadMenu}>
-          <Link to={selctClient && "./../Registrar/OutpatientCard"}>
+          <Link to={idClientSelect && "./../Registrar/OutpatientCard"}>
             <button>
               <img src="./img/View.png" alt="View" />
               Посмотреть
             </button>
           </Link>
-          <Link to={selctClient && "./EditPatient"}>
+          <Link to={idClientSelect && "./EditPatient"}>
             <button>
               <img src="./img/Edit.png" alt="View" />
               Редактировать
             </button>
           </Link>
-          <Link to={selctClient && "./MakeAppointment"}>
+          <Link to={idClientSelect && "./MakeAppointment"}>
             <button>
               <img src="./img/File_dock.png" alt="View" />
               Записать на прием

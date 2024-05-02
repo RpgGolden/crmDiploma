@@ -38,11 +38,10 @@ function ViewMyAppointment() {
                 <div key={index} className={styles.Apointments}>
                   <p><strong>Дата:</strong> {appointmentData[index].date}</p>
                   <p><strong>Время:</strong> {appointmentData[index].time}</p>
-                  <p><strong>Доктор:</strong> {`${appointmentData[index].doctor.surname} ${appointmentData[index].doctor.name} ${appointmentData[index].doctor.patrunymic}`}</p>
+                  <p><strong>Доктор:</strong> {`${appointmentData[index].doctor.surname} ${appointmentData[index].doctor.name} ${appointmentData[index].doctor.patronymic}`}</p>
                   <p><strong>Специальность:</strong> {appointmentData[index].doctor.specialist}</p>
                   <div className={styles.button__div}>
                     <button className={styles.button__divFirst} onClick={() => setindexPopUp(index)}><img src="./../img/Trash.png"/>Отменить прием</button>
-                    <button><img src="./../img/Edit.png"/>Редактировать</button>
                   </div>
                 </div>
               ))}

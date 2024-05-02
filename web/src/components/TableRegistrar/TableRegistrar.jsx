@@ -3,10 +3,12 @@ import styles from "./TableRegistrar.module.scss";
 import { tableHead } from "./Data";
 import Table from "./Table";
 import HeadMenu from "../HeadMenu/HeadMenu";
+import { GetAllUsers } from "../../API/API";
 
 function TableRegistrar(props) {
-  const tableHeadMemo = useMemo(() => tableHead, []);
+  const accessToken = localStorage.getItem('accessToken'); 
 
+  const tableHeadMemo = useMemo(() => tableHead, []);
   const [filterShow, setFilterShow] = useState(false);
   const [filtredData, setFiltredData] = useState(props.tableData);
   const [isChecked, setIsChecked] = useState("");
@@ -14,16 +16,20 @@ function TableRegistrar(props) {
   const [endDate, setEndDate] = useState("");
   const [gender, setGender] = useState({});
   const [search, setSearch] = useState("");
+  const [idClientSelect, setidClientSelect] = useState(null);
 
   const handleStartDateChange = (event) => {
     const selectedStartDate = event.target.value;
     setStartDate(selectedStartDate);
   };
 
-  useEffect(() => {
-    setFiltredData([...props.tableData]);
-  }, [props.tableData]);
-
+  useEffect(()=>{
+    console.log("accessToken",accessToken)
+     GetAllUsers(accessToken).then(response=>{
+      setFiltredData(response.data)
+    })
+  },[])
+ 
   //! филтрация по дате рождения
   const handleEndDateChange = (event) => {
     const selectedEndDate = event.target.value;
@@ -103,13 +109,12 @@ function TableRegistrar(props) {
 
   //! выбор пациента
   const selectTd = (id) => {
-    console.log(id);
-    props.setSelectClient(id);
+    setidClientSelect(id);
   };
 
   return (
     <div>
-      <HeadMenu state={"home"} selctClient={props.selctClient} />
+      <HeadMenu state={"home"} idClientSelect={idClientSelect} />
       <div className={styles.TableRegistrar}>
         <div className={styles.head}>
           <div className={styles.filters}>
@@ -165,7 +170,7 @@ function TableRegistrar(props) {
           tableHead={tableHeadMemo}
         />
         <div className={styles.text_length}>
-          <p>Всего строк: {filtredData.length}</p>
+          {/* <p>Всего строк: {filtredData.length}</p> */}
         </div>
       </div>
     </div>

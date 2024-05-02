@@ -138,6 +138,21 @@ export const GetAllUsers = async (accessToken) => {
   }
 };
 
+//! получение данных 1 пациента
+export const GetUsersData = async (accessToken) => {
+  try {
+    const response = await axios.get(`${server}/patient/getPatient`, {
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error("Login error:", error);
+    throw error;
+  }
+};
+
 //! запрос на регистрацию пациента
 export const CreatePatient = async (accessToken, data) => {
   try {

@@ -3,6 +3,8 @@ import styles from "./OutpatientCard.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { tableHead, visitHistory } from "../TableRegistrar/Data";
 function OutpatientCard(props) {
+  const accessToken = localStorage.getItem('accessToken'); 
+
   const [cardData, setCardData] = useState(props.clientData);
   const [rowName, setRowName] = useState(tableHead);
   const [history, setHistory] = useState(visitHistory);
