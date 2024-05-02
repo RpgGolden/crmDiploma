@@ -11,35 +11,22 @@ export default {
         try {
             const userId = req.user.id;
 
-            // Найти все записи на прием для найденного пациента
-            const appointmentsForUser = await Appointment.findAll({
-                where: { userId: userId },
-                include: [{ model: Doctor }, { model: User }],
-            });
-
-            // Создать объекты DTO для всех записей на прием для пациента
-            const appointmentsForUserDto = appointmentsForUser.map(x => new AppointmentDto(x));
-
-            // Получить patientId из параметров запроса (если он есть)
-            const { patientId } = req.query;
-            let appointmentsForPatientDto = [];
-
-            // Если указан patientId, найти все записи на прием для этого пациента
-            if (patientId) {
-                const appointmentsForPatient = await Appointment.findAll({
-                    where: { patientId: patientId },
-                    include: [{ model: Doctor }, { model: Patient }],
-                });
-
-                // Создать объекты DTO для всех записей на прием для пациента
-                appointmentsForPatientDto = appointmentsForPatient.map(x => new AppointmentDto(x));
+            const patient = await Patient.findOne({ where: { userId } });
+            if (!patient) {
+                throw new AppErrorMissing('Patient not found');
             }
 
-            // Объединить результаты записей на прием для пользователя и для пациента
-            const allAppointmentsDto = appointmentsForUserDto.concat(appointmentsForPatientDto);
+            const appointments = await Appointment.findAll({
+                where: { patientId: patient.id },
+                include: [Doctor, User],
+            });
 
+            if (!appointments) {
+                throw new AppErrorMissing('Appointments not found');
+            }
+            const appointmentDto = appointments.map(x => new AppointmentDto(x));
             // Отправить ответ с массивом DTO всех записей на прием
-            res.json(allAppointmentsDto);
+            res.json(appointmentDto);
         } catch (error) {
             console.error('Error fetching appointments:', error);
             res.status(500).json({ error: error.message });
@@ -60,6 +47,10 @@ export default {
         if (!user) {
             throw new AppErrorMissing('User not found');
         }
+        const patient = await Patient.findOne({ where: { userId } });
+        if (!patient) {
+            throw new AppErrorMissing('Patient not found');
+        }
         const existingAppointment = await Appointment.findOne({
             where: {
                 doctorId,
@@ -74,6 +65,7 @@ export default {
         const appointment = await Appointment.create({
             doctorId,
             userId,
+            patientId: patient.id,
             date,
             time,
         });
@@ -147,7 +139,7 @@ export default {
             const appointment = await Appointment.create({
                 doctorId,
                 userId,
-                patientId: patientId,
+                patientId: patient.id,
                 date,
                 time,
             });
