@@ -16,8 +16,6 @@ export default {
                 },
             });
 
-            console.log(patientsWithoutUser);
-
             // Находим всех пациентов с ролью PATIENT из таблицы User
             const patientsWithUserRole = await Patient.findAll({
                 include: {
@@ -25,8 +23,6 @@ export default {
                     where: { role: roles.PATIENT },
                 },
             });
-
-            console.log(patientsWithUserRole);
 
             // Объединяем результаты двух запросов
             const allPatients = patientsWithoutUser.concat(patientsWithUserRole);
@@ -49,7 +45,6 @@ export default {
         if (!patient) {
             throw new AppErrorMissing('Patient not found');
         }
-        console.log(patient);
         await patient.update({
             gender,
             passport,
@@ -77,6 +72,16 @@ export default {
         res.json(patientDto);
     },
 
+    async getDataPatient({ params: { patientId } }, res) {
+        const patient = await Patient.findByPk(patientId);
+        if (!patient) {
+            throw new AppErrorMissing('Patient not found');
+        }
+        const patientDto = new PatientDto(patient);
+
+        res.json(patientDto);
+    },
+
     async deletePatient({ params: { patientId } }, res) {
         try {
             const patient = await Patient.findByPk(patientId);
@@ -86,8 +91,6 @@ export default {
             }
 
             const { userId } = patient;
-
-            console.log(patient);
 
             // Удаление приемов, связанных с пациентом
             await Appointment.destroy({
@@ -143,5 +146,35 @@ export default {
         } catch (error) {
             console.error('Ошибка при создании пациента:', error);
         }
+    },
+
+    async updatePatient({ params: { patientId } }, req, res) {
+        const data = req.body;
+
+        const patient = await Patient.findByPk(patientId);
+        if (!patient) {
+            throw new AppErrorMissing('Patient not found');
+        }
+
+        console.log(patient);
+
+        const { name, surname, patronymic, gender, passport, snils, birthDate, phoneNumber, oms, registration } = data;
+
+        const updateData = await Patient.update({
+            name,
+            surname,
+            patronymic,
+            gender,
+            passport,
+            snils,
+            birthDate,
+            phoneNumber,
+            oms,
+            registration,
+        });
+
+        const patientDto = new PatientDto(patient);
+
+        res.json(patientDto);
     },
 };
