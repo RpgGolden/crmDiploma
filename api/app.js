@@ -6,6 +6,7 @@ import authRoute from './routes/auth.js';
 import patientRoute from './routes/patient.js';
 import appointmentRoute from './routes/appointment.js';
 import doctorsRoute from './routes/doctor.js';
+import bodyParser from 'body-parser';
 
 import testUtil from './utils/test-data.js';
 
