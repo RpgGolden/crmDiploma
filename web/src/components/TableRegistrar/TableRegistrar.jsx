@@ -110,6 +110,8 @@ function TableRegistrar(props) {
   //! выбор пациента
   const selectTd = (id) => {
     setidClientSelect(id);
+    localStorage.setItem("idClientSelect", id);
+
   };
 
   return (

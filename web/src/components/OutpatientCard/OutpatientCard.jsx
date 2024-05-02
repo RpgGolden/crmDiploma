@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./OutpatientCard.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { tableHead, visitHistory } from "../TableRegistrar/Data";
+import { GetPatientId } from "../../API/API";
 function OutpatientCard(props) {
   const accessToken = localStorage.getItem('accessToken'); 
 
-  const [cardData, setCardData] = useState(props.clientData);
+  const [cardData, setCardData] = useState([]);
   const [rowName, setRowName] = useState(tableHead);
   const [history, setHistory] = useState(visitHistory);
-  console.log(cardData);
+ 
+  useEffect(()=>{
+    const idPatientSelect = localStorage.getItem("idClientSelect");
+    GetPatientId(accessToken, idPatientSelect).then((response)=>{
+      setCardData(response.data)
+    })
+    
+  },[])
+
   return (
     <div>
       <HeadMenu state={"card"} />

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EditPatient.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
-const EditPatient = (props) => {
-  const [cardData, setCardData] = useState(props.clientData);
-  useEffect(() => {
-    //поучить пацента по id
-  }, []);
-  //   const [searchText, setSearchText] = useState("");
+import { GetPatientId, PatientUpdate } from "../../API/API";
+const EditPatient = () => {
+  const [cardData, setCardData] = useState([]);
+  const accessToken = localStorage.getItem('accessToken'); 
+
 
   const handleInput = (el, key) => {
     const query = el.target.value;
@@ -21,9 +20,26 @@ const EditPatient = (props) => {
     setCardData(cardData);
   };
 
-  // useEffect(()=>{
-  //   console.log(CheckedStatus)
-  // },CheckedStatus)
+  useEffect(()=>{
+    const idPatientSelect = localStorage.getItem("idClientSelect");
+    GetPatientId(accessToken, idPatientSelect).then((response)=>{
+      setCardData(response.data)
+    })
+
+  },[])
+
+
+  const handleSave = () => {
+    console.log("cardData", cardData)
+    PatientUpdate(accessToken, cardData).then(response=>{
+     if(response.status === 200){
+      alert("Изменения сохранены!")
+     }else{
+      alert("Произошла ошибка при внесении изменений!")
+     }
+    });;
+  };
+  
   return (
     <div>
       <HeadMenu state={"register"} />
@@ -81,14 +97,14 @@ const EditPatient = (props) => {
               <input
                 type="text"
                 placeholder="Телефон"
-                onChange={(el) => handleInput(el, "phone")}
-                value={cardData.phone}
+                onChange={(el) => handleInput(el, "phoneNumber")}
+                value={cardData.phoneNumber}
               />
               <input
                 type="text"
                 placeholder="Дата рождения"
-                onChange={(el) => handleInput(el, "birthdate")}
-                value={cardData.birthdate}
+                onChange={(el) => handleInput(el, "birthDate")}
+                value={cardData.birthDate}
               />
             </div>
           </div>
@@ -119,7 +135,7 @@ const EditPatient = (props) => {
               <button className={styles.but_left} onClick={cancellation}>
                 Отмена
               </button>
-              <button className={styles.but_rig}>Сохранить</button>
+              <button className={styles.but_rig} onClick={handleSave}>Сохранить</button>
             </div>
           </div>
         </div>

@@ -89,8 +89,8 @@ export const PatientGetData = async (accessToken) => {
     throw error;
   }
 };
-// //!получение всех записей пациента
 
+// //!получение всех записей пациента
 export const GetAllApointment = async (accessToken) => {
   try {
     const response = await axios.get(`${server}/appointment/getAll`, {
@@ -138,7 +138,7 @@ export const GetAllUsers = async (accessToken) => {
   }
 };
 
-//! получение данных 1 пациента
+//! получение данных 1 пациента по токену
 export const GetUsersData = async (accessToken) => {
   try {
     const response = await axios.get(`${server}/patient/getPatient`, {
@@ -157,6 +157,22 @@ export const GetUsersData = async (accessToken) => {
 export const CreatePatient = async (accessToken, data) => {
   try {
     const response = await axios.post(`${server}/patient/createPatient`, data, {
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error("Login error:", error);
+    throw error;
+  }
+};
+
+
+//! получение данных 1 пациента по Id
+export const GetPatientId = async (accessToken, id) => {
+  try {
+    const response = await axios.get(`${server}/patient/getDataPatient/${id}`, {
       headers: {
         Authorization: `${accessToken}`,
       },
