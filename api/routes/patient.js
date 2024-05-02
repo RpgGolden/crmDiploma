@@ -41,4 +41,19 @@ router
         asyncRoute(checkRole([role.ADMINISTRATOR, role.REGISTRATOR])),
         asyncRoute(patientController.createPatient)
     );
+router
+    .route('/getDataPatient/:patientId')
+    .get(
+        authenticateToken,
+        asyncRoute(checkRole([role.ADMINISTRATOR, role.REGISTRATOR])),
+        asyncRoute(patientController.getDataPatient)
+    );
+router
+    .route('/updatePatient/:patientId')
+    .post(
+        authenticateToken,
+        asyncRoute(checkRole([role.ADMINISTRATOR, role.REGISTRATOR])),
+        asyncRoute(patientController.updatePatient)
+    );
+
 export default router;

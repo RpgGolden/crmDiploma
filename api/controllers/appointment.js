@@ -130,7 +130,6 @@ export default {
             });
 
             await appointment.reload({ include: [Doctor, Patient] });
-            console.log(appointment);
             const appointmentPatientDto = new AppointmentPatientDto(appointment);
 
             res.json(appointmentPatientDto);
