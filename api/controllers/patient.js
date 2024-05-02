@@ -148,33 +148,45 @@ export default {
         }
     },
 
-    async updatePatient({ params: { patientId } }, req, res) {
-        const data = req.body;
-
+    async updatePatient(
+        {
+            params: { patientId },
+            body: { name, surname, patronymic, gender, passport, snils, birthDate, phoneNumber, oms, registration },
+        },
+        res
+    ) {
         const patient = await Patient.findByPk(patientId);
         if (!patient) {
             throw new AppErrorMissing('Patient not found');
         }
+        if (!name) name = patient.name;
+        if (!surname) surname = patient.surname;
+        if (!patronymic) patronymic = patient.patronymic;
+        if (!gender) gender = patient.gender;
+        if (!passport) passport = patient.passport;
+        if (!snils) snils = patient.snils;
+        if (!birthDate) birthDate = patient.birthDate;
+        if (!phoneNumber) phoneNumber = patient.phoneNumber;
+        if (!oms) oms = patient.oms;
+        if (!registration) registration = patient.registration;
+        try {
+            await patient.update({
+                name,
+                surname,
+                patronymic,
+                gender,
+                passport,
+                snils,
+                birthDate,
+                phoneNumber,
+                oms,
+                registration,
+            });
 
-        console.log(patient);
-
-        const { name, surname, patronymic, gender, passport, snils, birthDate, phoneNumber, oms, registration } = data;
-
-        const updateData = await Patient.update({
-            name,
-            surname,
-            patronymic,
-            gender,
-            passport,
-            snils,
-            birthDate,
-            phoneNumber,
-            oms,
-            registration,
-        });
-
-        const patientDto = new PatientDto(patient);
-
-        res.json(patientDto);
+            const patientDto = new PatientDto(patient);
+            res.json(patientDto);
+        } catch (error) {
+            console.error('Ошибка при обновлении пациента:', error);
+        }
     },
 };
