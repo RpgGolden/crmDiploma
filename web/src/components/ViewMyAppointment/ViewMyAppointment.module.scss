@@ -6,7 +6,7 @@
         margin-top: 15px;
         .container{
             @include container;
-            height: 75vh;
+            height: auto;
             .Apointments{
                 border-bottom: 1px solid #AFBBBD;
                 .button__div{

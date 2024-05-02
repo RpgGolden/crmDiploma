@@ -98,6 +98,7 @@ export const GetAllApointment = async (accessToken) => {
         Authorization: `${accessToken}`,
       },
     });
+    console.log(response)
     return response;
   } catch (error) {
     console.error("Login error:", error);

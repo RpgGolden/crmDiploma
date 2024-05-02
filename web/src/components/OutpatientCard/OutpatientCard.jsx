@@ -9,7 +9,7 @@ function OutpatientCard(props) {
 
   const [cardData, setCardData] = useState([]);
   const [rowName, setRowName] = useState(tableHead);
-  const [history, setHistory] = useState(visitHistory);
+  const [history, setHistory] = useState([]);
   const {contData} = useContext(DataContext)
 
   useEffect(()=>{
@@ -20,8 +20,7 @@ function OutpatientCard(props) {
     })
     console.log(idPat)
     GetAllPatientAppoint(accessToken, idPat ).then((response)=>{
-      // setCardData(response.data)
-      console.log('response', response.data)
+      setHistory(response.data)
     })
 
   },[])
@@ -44,7 +43,8 @@ function OutpatientCard(props) {
           </div>
           <div className={styles.right}>
             <h2>История посещений</h2>
-            <div className={styles.scroll_box}>
+            {history.length !==0 ?(
+              <div className={styles.scroll_box}>
               {history.map((item) => (
                 <div className={styles.table_box}>
                   <table>
@@ -54,21 +54,25 @@ function OutpatientCard(props) {
                     </tr>
                     <tr>
                       <td className={styles.td_left}>Специалист</td>
-                      <td className={styles.td_riht}>{item.specialist}</td>
+                      <td className={styles.td_riht}>{item.doctor.specialist}</td>
                     </tr>
                     <tr>
                       <td className={styles.td_left}>Врач</td>
-                      <td className={styles.td_riht}>{item.doctor}</td>
+                      <td className={styles.td_riht}>{`${item.doctor.surname} ${item.doctor.name} ${item.doctor.patronymic}`}</td>
                     </tr>
                     <tr>
                       <td className={styles.td_left}>Результат приема</td>
-                      <td className={styles.td_riht}>{item.result}</td>
+                      <td className={styles.td_riht}>{item.status}</td>
                     </tr>
                   </table>
                   <button>Распечатать</button>
                 </div>
               ))}
-            </div>
+              </div>
+            ):(
+              <h3>У пациента нет записей</h3>
+            )}
+           
           </div>
         </div>
       </div>

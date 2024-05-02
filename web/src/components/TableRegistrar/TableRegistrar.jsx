@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "./TableRegistrar.module.scss";
-import { tableHead } from "./Data";
+import { tableData, tableHead } from "./Data";
 import Table from "./Table";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { GetAllUsers } from "../../API/API";
@@ -12,6 +12,7 @@ function TableRegistrar(props) {
   const tableHeadMemo = useMemo(() => tableHead, []);
   const [filterShow, setFilterShow] = useState(false);
   const [filtredData, setFiltredData] = useState([]);
+  const [tableData, setTableData] = useState([])
   const [isChecked, setIsChecked] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -29,7 +30,8 @@ function TableRegistrar(props) {
   useEffect(()=>{
     console.log("accessToken",accessToken)
      GetAllUsers(accessToken).then(response=>{
-      setFiltredData(response.data)
+      setFiltredData(response.data);
+      setTableData(response.data);
     })
   },[])
  
@@ -52,7 +54,7 @@ function TableRegistrar(props) {
 
       return filtered;
     } else {
-      return props.tableData;
+      return tableData;
     }
   };
 
@@ -70,11 +72,11 @@ function TableRegistrar(props) {
   const genderFilter = ({ id, checked }, fd) => {
     if (id === "men" && checked === true) {
       fd = fd.filter((item) => {
-        return item.gender.toLowerCase().includes("М".toLowerCase());
+        return item.gender === 1;
       });
     } else if (id === "women" && checked === true) {
       fd = fd.filter((item) => {
-        return item.gender.toLowerCase().includes("Ж".toLowerCase());
+        return item.gender === 2;
       });
     }
     return fd;
@@ -87,7 +89,8 @@ function TableRegistrar(props) {
 
   //! функция фильтрации
   useEffect(() => {
-    let fd = props.tableData;
+    console.log(tableData)
+    let fd = tableData;
     setFiltredData(fd);
 
     if (search) {
@@ -145,7 +148,7 @@ function TableRegistrar(props) {
                     type="checkbox"
                     id="women"
                     name="gender"
-                    checked={isChecked === "women" ? true : false}
+                    checked={isChecked === 'women' ? true : false}
                     onChange={genderSelect}
                   />
                   Женский
