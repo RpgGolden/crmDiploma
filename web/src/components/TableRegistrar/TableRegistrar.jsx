@@ -11,7 +11,7 @@ function TableRegistrar(props) {
   const accessToken = localStorage.getItem('accessToken'); 
   const tableHeadMemo = useMemo(() => tableHead, []);
   const [filterShow, setFilterShow] = useState(false);
-  const [filtredData, setFiltredData] = useState(props.tableData);
+  const [filtredData, setFiltredData] = useState([]);
   const [isChecked, setIsChecked] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -122,7 +122,7 @@ function TableRegistrar(props) {
   },[ contData.selctClient])
   return (
     <div>
-      <HeadMenu state={"home"} idClientSelect={idClientSelect} />
+      <HeadMenu setFiltredData={setFiltredData}  state={"home"} idClientSelect={idClientSelect} />
       <div className={styles.TableRegistrar}>
         <div className={styles.head}>
           <div className={styles.filters}>

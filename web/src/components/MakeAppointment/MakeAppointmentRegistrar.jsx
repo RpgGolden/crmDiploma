@@ -1,16 +1,26 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./MakeAppointment.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
-import { GetAllApointment, GetAllDoctor, MakeApointmentApi } from "../../API/API";
+import { CreateAppointReg, GetAllApointment, GetAllDoctor, GetPatientId, MakeApointmentApi } from "../../API/API";
 import { Time } from "../TableRegistrar/Data";
+import DataContext from "../../context";
 
-function MakeAppointment(props) {
+function MakeAppointmentRegistrar(props) {
+  const {contData} = useContext(DataContext)
   const [modalDok, setModalDok] = useState(false);
   const [modalTime, setmodalTime] = useState(false);
   const [randomNumber, setRandomNumber] = useState(null);
   const [dateDoctor, setdateDoctor] = useState([]);
   const accessToken = localStorage.getItem('accessToken'); 
+    const [id, setId] = useState(null)
+  useEffect(()=>{
+    const idData = sessionStorage.getItem("idClientSelect") 
+    contData.setSelectClient( idData)
+    GetPatientId(accessToken, idData).then((response)=>{
+        setId(response.data.id)
+        })
+  },[ contData.selctClient])
 
   const [appointmentData, setAppointmentData] = useState({
     date: "",
@@ -29,9 +39,10 @@ function MakeAppointment(props) {
       {
         doctorId:appointmentData.doctor,
         date:appointmentData.date,
-        time:appointmentData.time
+        time:appointmentData.time,
+        patientId: id
       }
-    MakeApointmentApi(accessToken,data).then(response=>{
+      CreateAppointReg(accessToken,data).then(response=>{
       console.log("response", response.status)
       ClearData();
       alert("Заявка успешно создана")
@@ -159,4 +170,4 @@ function MakeAppointment(props) {
   );
 }
 
-export default MakeAppointment;
+export default MakeAppointmentRegistrar;

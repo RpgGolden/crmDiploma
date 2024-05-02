@@ -15,6 +15,7 @@ import EditPatient from "./components/EditPatient/EditPatient";
 import { useState } from "react";
 import MakeAppointment from "./components/MakeAppointment/MakeAppointment";
 import DataContext from "./context";
+import MakeAppointmentRegistrar from "./components/MakeAppointment/MakeAppointmentRegistrar";
 
 function App() {
   const [selctClient, setSelectClient] = useState("");
@@ -59,9 +60,9 @@ function App() {
                 }
               ></Route>
               <Route
-                path="MakeAppointment"
+                path="MakeAppointmentRegistrar"
                 element={
-                  <MakeAppointment/>
+                  <MakeAppointmentRegistrar/>
                 }
               ></Route>
             </Route>

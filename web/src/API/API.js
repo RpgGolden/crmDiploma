@@ -216,16 +216,33 @@ export const GetAllPatientAppoint = async (accessToken, id) => {
 
 
 // //! Получение историй посищений клиента 
-// export const GetAllPatientAppoint = async (accessToken, id) => {
-//   try {
-//     const response = await axios.get(`${server}/appointment/GetAllPatientAppointments/${id}`,{
-//       headers: {
-//         Authorization: `${accessToken}`,
-//       },
-//     });
-//     return response;
-//   } catch (error) {
-//     console.error("Login error:", error);
-//     throw error;
-//   }
-// };
+export const CreateAppointReg = async (accessToken, data) => {
+  try {
+    const response = await axios.post(`${server}/appointment/createByRegister`, data,{
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error("Login error:", error);
+    throw error;
+  }
+};
+
+// //! удаление пациента
+export const deleteAppointment = async (accessToken, id) => {
+  console.log('id', id)
+  try {
+    const response = await axios.delete(`${server}/patient/deletePatient/${id}`,{
+      headers: {
+        Authorization: `${accessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error("Login error:", error);
+    throw error;
+  }
+};
+

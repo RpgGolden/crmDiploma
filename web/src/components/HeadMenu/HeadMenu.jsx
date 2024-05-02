@@ -2,8 +2,23 @@ import React, { useContext } from "react";
 import styles from "./HeadMenu.module.scss";
 import { Link } from "react-router-dom";
 import DataContext from "../../context";
-function HeadMenu({ state }) {  
+import { deleteAppointment } from "../../API/API";
+function HeadMenu({ state, setFiltredData}) {  
   const {contData} = useContext(DataContext)
+  const accessToken = localStorage.getItem('accessToken'); 
+
+  const deletePatien= () =>{
+    console.log(contData.selctClient)
+    deleteAppointment(accessToken, contData.selctClient).then((res)=>{
+      if(res.status===200){
+        alert("Пользователь удален")
+        setFiltredData((prev)=> prev.id !== contData.selctClient)
+      }else(
+        alert("Произошла ошибка")
+      )
+    })
+  }
+
 
   return (
 
@@ -22,7 +37,7 @@ function HeadMenu({ state }) {
               Редактировать
             </button>
           </Link>
-          <Link to={contData.selctClient && "./MakeAppointment"}>
+          <Link to={contData.selctClient && "./MakeAppointmentRegistrar"}>
             <button>
               <img src="./img/File_dock.png" alt="View" />
               Записать на прием
@@ -34,6 +49,10 @@ function HeadMenu({ state }) {
               Добавить пациента
             </button>
           </Link>
+            <button onClick={deletePatien}>
+              <img src="./img/Add_ring.png" alt="View" />
+             Удалить
+            </button>
         </div>
       ) : state === "register" ? (
         <div className={styles.HeadMenu}>

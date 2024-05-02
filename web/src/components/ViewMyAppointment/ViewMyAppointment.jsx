@@ -14,6 +14,7 @@ function ViewMyAppointment() {
     useEffect(()=>{
        GetAllApointment(accessToken).then(response=>{
         setAppointmentData(response.data)
+        console.log(response.data)
        });
        console.log(indexPopUp)
     },[indexPopUp])
