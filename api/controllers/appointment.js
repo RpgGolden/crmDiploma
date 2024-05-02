@@ -8,18 +8,42 @@ import AppointmentPatientDto from '../dtos/appointment-patient-dto.js';
 
 export default {
     async getAll(req, res) {
-        const userId = req.user.id;
-        // Найти все записи на прием для найденного пациента
-        const appointments = await Appointment.findAll({
-            where: { userId: userId },
-            include: [{ model: Doctor }, User],
-        });
+        try {
+            const userId = req.user.id;
 
-        // Создать объекты DTO для всех записей на прием
-        const appointmentsDto = appointments.map(x => new AppointmentDto(x));
+            // Найти все записи на прием для найденного пациента
+            const appointmentsForUser = await Appointment.findAll({
+                where: { userId: userId },
+                include: [{ model: Doctor }, { model: User }],
+            });
 
-        // Отправить ответ с массивом DTO записей на прием
-        res.json(appointmentsDto);
+            // Создать объекты DTO для всех записей на прием для пациента
+            const appointmentsForUserDto = appointmentsForUser.map(x => new AppointmentDto(x));
+
+            // Получить patientId из параметров запроса (если он есть)
+            const { patientId } = req.query;
+            let appointmentsForPatientDto = [];
+
+            // Если указан patientId, найти все записи на прием для этого пациента
+            if (patientId) {
+                const appointmentsForPatient = await Appointment.findAll({
+                    where: { patientId: patientId },
+                    include: [{ model: Doctor }, { model: Patient }],
+                });
+
+                // Создать объекты DTO для всех записей на прием для пациента
+                appointmentsForPatientDto = appointmentsForPatient.map(x => new AppointmentDto(x));
+            }
+
+            // Объединить результаты записей на прием для пользователя и для пациента
+            const allAppointmentsDto = appointmentsForUserDto.concat(appointmentsForPatientDto);
+
+            // Отправить ответ с массивом DTO всех записей на прием
+            res.json(allAppointmentsDto);
+        } catch (error) {
+            console.error('Error fetching appointments:', error);
+            res.status(500).json({ error: error.message });
+        }
     },
 
     async createAppointment(req, res) {
