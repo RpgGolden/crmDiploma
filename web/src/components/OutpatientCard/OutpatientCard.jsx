@@ -5,13 +5,11 @@ import { tableHead } from "../TableRegistrar/Data";
 import { GetAllPatientAppoint, GetPatientId } from "../../API/API";
 import DataContext from "../../context";
 function OutpatientCard() {
-  const accessToken = localStorage.getItem("accessToken");
-
   const [cardData, setCardData] = useState([]);
-  const [rowName, setRowName] = useState(tableHead);
+  const [rowName] = useState(tableHead);
   const [history, setHistory] = useState([]);
+  const accessToken = localStorage.getItem("accessToken");
   const { contData } = useContext(DataContext);
-
   useEffect(() => {
     const idPat = sessionStorage.getItem("idClientSelect");
     contData.setSelectClient(idPat);
@@ -22,7 +20,7 @@ function OutpatientCard() {
     GetAllPatientAppoint(accessToken, idPat).then((response) => {
       setHistory(response.data);
     });
-  }, []);
+  }, [accessToken, contData]);
 
   return (
     <div>
