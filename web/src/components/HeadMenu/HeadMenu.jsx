@@ -15,27 +15,37 @@ function HeadMenu({ state, setFiltredData, filtredData }) {
           filtredData.filter((item) => item.id !== contData.selctClient)
         );
         contData.setSelectClient(null);
+        sessionStorage.setItem("idClientSelect", null);
       } else alert("Произошла ошибка");
     });
   };
-  console.log(contData.selctClient);
+  console.log(
+    "d",
+    contData.selctClient,
+    sessionStorage.getItem("idClientSelect")
+  );
+  const flag =
+    contData.selctClient !== "null" &&
+    sessionStorage.getItem("idClientSelect") !== "null"
+      ? true
+      : false;
   return (
     <>
       {state === "home" ? (
         <div className={styles.HeadMenu}>
-          <Link to={contData.selctClient && "./../Registrar/OutpatientCard"}>
+          <Link to={flag && "./../Registrar/OutpatientCard"}>
             <button>
               <img src="./img/View.png" alt="View" />
               Посмотреть
             </button>
           </Link>
-          <Link to={contData.selctClient && "./EditPatient"}>
+          <Link to={flag && "./EditPatient"}>
             <button>
               <img src="./img/Edit.png" alt="View" />
               Редактировать
             </button>
           </Link>
-          <Link to={contData.selctClient && "./MakeAppointmentRegistrar"}>
+          <Link to={flag && "./MakeAppointmentRegistrar"}>
             <button>
               <img src="./img/File_dock.png" alt="View" />
               Записать на прием
