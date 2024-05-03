@@ -154,9 +154,9 @@ const AccounClient = (props) => {
             <div className={styles.label_box}>
               <label htmlFor="myRadio">
                 <input
-                  type="radio"
-                  name="myRadio"
-                  checked={formData.gender === 1}
+                  type="checkbox"
+                  name="МУЖ"
+                  checked={formData.gender === "1" || formData.gender === 1}
                   onChange={() => {
                     setFormData({ ...formData, gender: "1" });
                   }}
@@ -165,9 +165,9 @@ const AccounClient = (props) => {
               </label>
               <label>
                 <input
-                  type="radio"
-                  name="myRadio"
-                  checked={formData.gender === 2}
+                  type="checkbox"
+                  name="ЖЕН"
+                  checked={formData.gender === "2" || formData.gender === 2}
                   onChange={() => {
                     setFormData({ ...formData, gender: "2" });
                   }}
