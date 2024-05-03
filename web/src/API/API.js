@@ -98,8 +98,7 @@ export const GetAllDoctor = async (accessToken) => {
     });
     return response;
   } catch (error) {
-    console.error("Login error:", error);
-    throw error;
+    alert("При получения списка докторов произошла ошибка!");
   }
 };
 
@@ -113,8 +112,7 @@ export const MakeApointmentApi = async (accessToken, data) => {
     });
     return response;
   } catch (error) {
-    console.error("Appointment creation error:", error);
-    throw error;
+    alert("Извините, но на такое время уже зарегистрирована заявка!");
   }
 };
 
@@ -142,8 +140,7 @@ export const PatientGetData = async (accessToken) => {
     });
     return response;
   } catch (error) {
-    console.error("Appointment creation error:", error);
-    throw error;
+    alert("Произошла ошибка при получении данных пациента!");
   }
 };
 
@@ -158,8 +155,8 @@ export const GetAllApointment = async (accessToken) => {
     console.log(response);
     return response;
   } catch (error) {
-    console.error("Login error:", error);
-    throw error;
+    alert("Произошла ошибка при получении записей пациента!");
+
   }
 };
 
@@ -176,8 +173,8 @@ export const DeleteApointment = async (accessToken, id) => {
     );
     return response;
   } catch (error) {
-    console.error("Appointment creation error:", error);
-    throw error;
+    alert("Произошла ошибка при удалении записи пациента!");
+
   }
 };
 
@@ -191,8 +188,8 @@ export const GetAllUsers = async (accessToken) => {
     });
     return response;
   } catch (error) {
-    console.error("Login error:", error);
-    throw error;
+    alert("Произошла ошибка при получении данных о пациента!");
+
   }
 };
 
@@ -206,8 +203,7 @@ export const GetUsersData = async (accessToken) => {
     });
     return response;
   } catch (error) {
-    console.error("Login error:", error);
-    throw error;
+    alert("Произошла ошибка при получении данных пациента!");
   }
 };
 
@@ -221,8 +217,8 @@ export const CreatePatient = async (accessToken, data) => {
     });
     return response;
   } catch (error) {
-    console.error("Login error:", error);
-    throw error;
+    alert("Произошла ошибка при регистрации пациента!");
+
   }
 };
 
@@ -236,8 +232,7 @@ export const GetPatientId = async (accessToken, id) => {
     });
     return response;
   } catch (error) {
-    console.error("Login error:", error);
-    throw error;
+    alert("Произошла ошибка при получении данных о пациенте!");
   }
 };
 
@@ -255,13 +250,12 @@ export const UpdateDataPatientForId = async (accessToken, data, id) => {
     );
     return response;
   } catch (error) {
-    console.error("Login error:", error);
-    throw error;
+    alert("Произошла ошибка при обновлении данных пациента!");
   }
 };
 
-//! получение истории записей регестратором о пациенте
 
+//! получение истории записей регестратором о пациенте
 export const GetAllPatientAppoint = async (accessToken, id) => {
   try {
     const response = await axios.get(
@@ -274,8 +268,7 @@ export const GetAllPatientAppoint = async (accessToken, id) => {
     );
     return response;
   } catch (error) {
-    console.error("Login error:", error);
-    throw error;
+    alert("Произошла ошибка при получении истории записей пациента!");
   }
 };
 
@@ -293,8 +286,7 @@ export const CreateAppointReg = async (accessToken, data) => {
     );
     return response;
   } catch (error) {
-    console.error("Login error:", error);
-    throw error;
+    alert("Произошла ошибка при получении истории записей пациента!");
   }
 };
 
@@ -312,7 +304,7 @@ export const deleteAppointment = async (accessToken, id) => {
     );
     return response;
   } catch (error) {
-    console.error("Login error:", error);
-    throw error;
+    alert("Произошла ошибка при удалении пациента!");
+
   }
 };
