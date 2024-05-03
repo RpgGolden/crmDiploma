@@ -25,11 +25,10 @@ function HeadMenu({ state, setFiltredData, filtredData }) {
   };
 
     useEffect(()=>{
-      contData.selctClient !== "null" &&
-      sessionStorage.getItem("idClientSelect") !== "null"
-        ? setuseFlag(true)
-        : setuseFlag(false);
+      ((contData.selctClient === null || sessionStorage.getItem("idClientSelect") === null 
+      || contData.selctClient === "null" || sessionStorage.getItem("idClientSelect") === "null")) ? setuseFlag(false) : setuseFlag(true);
     }, [contData.selctClient])
+
   return (
     <>
       {state === "home" ? (
