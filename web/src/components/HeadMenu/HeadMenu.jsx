@@ -45,7 +45,7 @@ function HeadMenu({ state, setFiltredData }) {
             </button>
           </Link>
           <button onClick={deletePatien}>
-            <img src="./img/Add_ring.png" alt="View" />
+            <img src="./img/Trash.png" alt="View" />
             Удалить
           </button>
         </div>
@@ -109,10 +109,6 @@ function HeadMenu({ state, setFiltredData }) {
                 Редактировать
               </button>
             </Link>
-            <button>
-              <img src="./../img/Trash.png" alt="View" />
-              Удалить
-            </button>
           </div>
         )
       )}
