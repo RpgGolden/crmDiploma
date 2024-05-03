@@ -305,6 +305,5 @@ export const deleteAppointment = async (accessToken, id) => {
     return response;
   } catch (error) {
     alert("Произошла ошибка при удалении пациента!");
-
   }
 };

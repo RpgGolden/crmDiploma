@@ -12,7 +12,6 @@ function OutpatientCard() {
   const { contData } = useContext(DataContext);
   useEffect(() => {
     const idPat = sessionStorage.getItem("idClientSelect");
-    console.log(idPat);
     contData.setSelectClient(idPat);
     GetPatientId(accessToken, idPat).then((response) => {
       setCardData(response.data);

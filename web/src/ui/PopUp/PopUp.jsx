@@ -20,7 +20,7 @@ function PopUp(props) {
                 <p>{props.subtitle}</p>
                 <div className={style.buttonInner}>
                     <button onClick={()=> props.setindexPopUp(null)}>Отменить</button>
-                    <button className={style.buttonDel} onClick={deletApoint}><img src="./../img/Trash.png"/>Удалить</button>
+                    <button className={style.buttonDel} onClick={deletApoint}><img src="./../img/Trash.png" alt="trash"/>Удалить</button>
                 </div>
             </div>          
         </div>

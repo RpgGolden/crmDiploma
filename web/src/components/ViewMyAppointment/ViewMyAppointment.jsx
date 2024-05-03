@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./ViewMyAppointment.module.scss";
 import HeadMenu from "../HeadMenu/HeadMenu";
 import { Link } from "react-router-dom";
-import { Appointments } from "./data";
 import PopUp from "../../ui/PopUp/PopUp";
 import { GetAllApointment } from "../../API/API";
 
@@ -15,7 +14,7 @@ function ViewMyAppointment() {
     GetAllApointment(accessToken).then((response) => {
       setAppointmentData(response.data);
     });
-  }, [indexPopUp]);
+  }, [indexPopUp, accessToken]);
 
   return (
     <div className={styles.ViewMyAppointment}>
@@ -27,7 +26,7 @@ function ViewMyAppointment() {
               <h1>У вас еще нет активных записей на прием</h1>
               <Link to="/Client/MakeAppointment">
                 <button>
-                  <img src="./../img/add.svg" />
+                  <img src="./../img/add.svg" alt="plus"/>
                   Записаться на прием
                 </button>
               </Link>
@@ -56,7 +55,7 @@ function ViewMyAppointment() {
                       className={styles.button__divFirst}
                       onClick={() => setindexPopUp(index)}
                     >
-                      <img src="./../img/Trash.png" />
+                      <img src="./../img/Trash.png" alt="trash"/>
                       Отменить прием
                     </button>
                   </div>

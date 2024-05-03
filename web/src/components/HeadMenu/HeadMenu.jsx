@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./HeadMenu.module.scss";
 import { Link } from "react-router-dom";
 import DataContext from "../../context";
@@ -6,46 +6,47 @@ import { deleteAppointment } from "../../API/API";
 function HeadMenu({ state, setFiltredData, filtredData }) {
   const { contData } = useContext(DataContext);
   const accessToken = localStorage.getItem("accessToken");
-
+  const [useFlag, setuseFlag] = useState(false)
   const deletePatien = () => {
-    deleteAppointment(accessToken, contData.selctClient).then((res) => {
-      if (res.status === 200) {
-        alert("Пользователь удален");
-        setFiltredData(
-          filtredData.filter((item) => item.id !== contData.selctClient)
-        );
-        contData.setSelectClient(null);
-        sessionStorage.setItem("idClientSelect", null);
-      } else alert("Произошла ошибка");
-    });
+    if(useFlag){
+      deleteAppointment(accessToken, contData.selctClient).then((res) => {
+        if (res.status === 200) {
+          contData.setSelectClient(null);
+          sessionStorage.setItem("idClientSelect", null);
+          setFiltredData(
+            filtredData.filter((item) => item.id !== contData.selctClient)
+          );
+          alert("Пользователь удален");
+        } else alert("Произошла ошибка");
+      });
+    }else{
+      alert("Сначала выберите пользователя, которого хотите удалить!")
+    }
   };
-  console.log(
-    "d",
-    contData.selctClient,
-    sessionStorage.getItem("idClientSelect")
-  );
-  const flag =
-    contData.selctClient !== "null" &&
-    sessionStorage.getItem("idClientSelect") !== "null"
-      ? true
-      : false;
+
+    useEffect(()=>{
+      contData.selctClient !== "null" &&
+      sessionStorage.getItem("idClientSelect") !== "null"
+        ? setuseFlag(true)
+        : setuseFlag(false);
+    }, [contData.selctClient])
   return (
     <>
       {state === "home" ? (
         <div className={styles.HeadMenu}>
-          <Link to={flag && "./../Registrar/OutpatientCard"}>
+          <Link to={useFlag && "./../Registrar/OutpatientCard"}>
             <button>
               <img src="./img/View.png" alt="View" />
               Посмотреть
             </button>
           </Link>
-          <Link to={flag && "./EditPatient"}>
+          <Link to={useFlag && "./EditPatient"}>
             <button>
               <img src="./img/Edit.png" alt="View" />
               Редактировать
             </button>
           </Link>
-          <Link to={flag && "./MakeAppointmentRegistrar"}>
+          <Link to={useFlag && "./MakeAppointmentRegistrar"}>
             <button>
               <img src="./img/File_dock.png" alt="View" />
               Записать на прием
