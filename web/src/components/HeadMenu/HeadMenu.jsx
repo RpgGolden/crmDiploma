@@ -3,7 +3,7 @@ import styles from "./HeadMenu.module.scss";
 import { Link } from "react-router-dom";
 import DataContext from "../../context";
 import { deleteAppointment } from "../../API/API";
-function HeadMenu({ state, setFiltredData }) {
+function HeadMenu({ state, setFiltredData, filtredData }) {
   const { contData } = useContext(DataContext);
   const accessToken = localStorage.getItem("accessToken");
 
@@ -11,11 +11,14 @@ function HeadMenu({ state, setFiltredData }) {
     deleteAppointment(accessToken, contData.selctClient).then((res) => {
       if (res.status === 200) {
         alert("Пользователь удален");
-        setFiltredData((prev) => prev.id !== contData.selctClient);
+        setFiltredData(
+          filtredData.filter((item) => item.id !== contData.selctClient)
+        );
+        contData.setSelectClient(null);
       } else alert("Произошла ошибка");
     });
   };
-
+  console.log(contData.selctClient);
   return (
     <>
       {state === "home" ? (

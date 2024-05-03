@@ -136,6 +136,7 @@ function TableRegistrar(props) {
   return (
     <div>
       <HeadMenu
+        filtredData={filtredData}
         setFiltredData={setFiltredData}
         state={"home"}
         idClientSelect={idClientSelect}
